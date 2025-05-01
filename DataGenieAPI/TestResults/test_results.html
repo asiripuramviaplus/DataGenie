@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Genie - AI-Powered Natural Language to SQL Translation & Test Execution Summary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        h2 {
+            font-weight: bold;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .charts-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 50px; /* Increase spacing after charts */
+        }
+        .chart-container {
+            width: 45%;
+            height: 300px;
+        }
+        .table-container {
+            margin-top: 30px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px; /* Extra margin for better spacing */
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        .table thead th {
+            background-color: #6c8ebf;
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            padding: 14px;
+            font-size: 18px;
+        }
+        .table tbody td {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 14px;
+            font-size: 16px;
+            color: #333;
+        }
+        .table tbody tr:hover {
+            background-color: #eaf0f6;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Data Genie - AI-Powered Natural Language to SQL Translation & Test Execution Summary</h2>
+        <p class="text-center">Data Genie is an intelligent AI-powered tool that translates natural language queries into optimized SQL statements and executes them on a database. It utilizes Azure AI models to generate SQL queries based on schema metadata, ensuring accurate table and column mappings. The tool also validates, corrects, and optimizes queries, analyzing complexity before execution. With built-in query execution tracking, structured logging, and automated reporting.</p>
+
+<div class="panel">
+            <div class="summary text-center">
+                <h4>Overall Test Case Summary -  CTRMA BI Reports Database</h4>
+                <p>
+                    <b>Total Test Cases:</b> 50 | 
+                    <b>Passed:</b> <span class="text-success">49</span> | 
+                    <b>Failed:</b> <span class="text-danger">1</span>
+                </p>
+            </div>
+            <div class="charts-container">
+                <div class="chart-container" style="width: 40%; text-align: center;">
+                    <img src="cid:test_results_chart" alt="Test Results Chart" width="300">
+                </div>
+                <div class="chart-container" style="width: 50%; text-align: center;">
+                    <img src="cid:complexity_chart" alt="Complexity Distribution Chart" width="350">
+                </div>
+            </div>
+        </div>
+        <!-- Add extra space before the table -->
+        <div style="height: 50px;"></div>
+
+        <div class="panel table-container">
+            <table border="1" class="dataframe table table-hover">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Test Case</th>
+      <th>Query</th>
+      <th>Generated SQL</th>
+      <th>Complexity Level</th>
+      <th>Generation Time</th>
+      <th>Execution Time</th>
+      <th>Status</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Show a detailed breakdown of toll amounts collected per month.</td>
+      <td>SELECT \n    FORMAT(FILE_RECEIVED_DATE, 'yyyy-MM') AS Month,\n    SUM(TOLLAMOUNT) AS TotalTollCollected\nFROM \n    REPORTS.PAIDTRANSACTION_DETAILS_AMT\nGROUP BY \n    FORMAT(FILE_RECEIVED_DATE, 'yyyy-MM')\nORDER BY \n    Month;\n</td>
+      <td>Low</td>
+      <td>1.96 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.PAIDTRANSACTION_DETAILS_AMT` contains 37,800,833 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Show a detailed breakdown of all payment types and their respective transaction amounts.</td>
+      <td>SELECT PAYMENTTYPE, SUM(TXNAMOUNT) AS TotalTransactionAmount, COUNT(Id) AS TransactionCount FROM PBI.PAYMENTSINFO GROUP BY PAYMENTTYPE ORDER BY PAYMENTTYPE;</td>
+      <td>Low</td>
+      <td>0.96 seconds</td>
+      <td>0.32 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Get a report of all unpaid invoices grouped by location.</td>
+      <td>SELECT \n    LOC.LOCATIONID,\n    LOC.LOCATIONCODE,\n    LOC.LOCATIONNAME,\n    LOC.COUNTYNAME,\n    LOC.COURTNAME,\n    LIQ.InvoiceMonthYear,\n    SUM(LIQ.ChargedAmount) AS TotalUnpaidAmount,\n    COUNT(LIQ.CHARGEDAMOUNT) AS UnpaidInvoiceCount\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE LIQ\nINNER JOIN \n    dbo.Locations LOC ON LOC.LOCATIONID = LIQ.LOCATIONID\nWHERE \n    LIQ.PaidCount = 0\nGROUP BY \n    LOC.LOCATIONID,\n    LOC.LOCATIONCODE,\n    LOC.LOCATIONNAME,\n    LOC.COUNTYNAME,\n    LOC.COURTNAME,\n    LIQ.InvoiceMonthYear\n</td>
+      <td>Low</td>
+      <td>2.39 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>List all transactions where the invoice amount is greater than $2000.</td>
+      <td>SELECT SNO, AFFIDAVITCREATEDDATE, AFFIDAVITTYPE, REQUESTEDSTATUS, LOCATIONCODE, CNT, TOLLCNT, TOLLAMOUNT, INVOICECNT, INVOICEAMT, CREATEDDATE, CREATEDBY, UPDATEDDATE, UPDATEDBY FROM PBI.DISPUTES_SUMMARY_V2 WHERE INVOICEAMT > 2000;</td>
+      <td>Low</td>
+      <td>1.49 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Show all payments made in the last 3 months.</td>
+      <td>SELECT Id, PAYMENTDATE, PAYMENTTYPE, PAYMNETSTATUS, PMTMODE, ACCOUNTSTATUS, ACCOUNTTYPES, TXNAMOUNT, NOOFPMTS, CREATEDDATE, CREATEDUSER FROM PBI.PAYMENTSINFO WHERE PAYMENTDATE >= DATEADD(MONTH, -3, GETDATE());</td>
+      <td>Low</td>
+      <td>1.29 seconds</td>
+      <td>1.61 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Find the top 5 locations with the highest number of transactions.</td>
+      <td>SELECT TOP 5 l.LOCATIONID, l.LOCATIONCODE, l.LOCATIONNAME, l.DESCRIPTION, COUNT(t.LOADEDTXNDTLID) AS TransactionCount FROM dbo.Locations l JOIN REPORTS.LOADEDTRANSACTION_DETAILS t ON l.LOCATIONID = t.FACILITYCODE GROUP BY l.LOCATIONID, l.LOCATIONCODE, l.LOCATIONNAME, l.DESCRIPTION ORDER BY TransactionCount DESC;</td>
+      <td>Low</td>
+      <td>1.32 seconds</td>
+      <td>0.29 seconds</td>
+      <td>FAIL</td>
+      <td>SQL Execution Error: [22018] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting the varchar value '183A' to data type int. (245) (SQLExecDirectW)</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Retrieve the count of all adjustments made in the past quarter.</td>
+      <td>SELECT COUNT(*) AS AdjustmentCount FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTDATE >= DATEADD(QUARTER, -1, GETDATE()) AND ADJUSTMENTDATE < GETDATE();</td>
+      <td>Low</td>
+      <td>0.95 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>List all transactions where the paid amount is greater than the charged amount.</td>
+      <td>SELECT \n    FileMonthYear,\n    FILERECEIVEDATE,\n    InvoiceMonthYear,\n    InvoiceMonthYearToorder,\n    MonthNumber,\n    InvMonthNumber,\n    CITATIONSTAGE,\n    AGENCYID,\n    LOCATIONID,\n    ENTRYPLAZAID,\n    ENTRYLANEID,\n    PaidCount,\n    PAIDAMT,\n    CHARGEDAMOUNT,\n    TOTALCNT,\n    JOBRUNDATE,\n    TRIPSTATUSDATE\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE \n    PAIDAMT > CHARGEDAMOUNT;\n</td>
+      <td>Low</td>
+      <td>1.48 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>List all liquidation data available.</td>
+      <td>SELECT \n    FileMonthYear,\n    FILERECEIVEDATE,\n    InvoiceMonthYear,\n    InvoiceMonthYearToorder,\n    MonthNumber,\n    InvMonthNumber,\n    CITATIONSTAGE,\n    AGENCYID,\n    LOCATIONID,\n    ENTRYPLAZAID,\n    ENTRYLANEID,\n    PaidCount,\n    PAIDAMT,\n    CHARGEDAMOUNT,\n    TOTALCNT,\n    JOBRUNDATE,\n    TRIPSTATUSDATE\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE;\n</td>
+      <td>Low</td>
+      <td>1.44 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Find all invoices that have not been paid yet and are overdue by more than 30 days.</td>
+      <td>SELECT INV.ID, INV.REQUESTEDDATE, INV.TEMPLATENAME, INV.NOTICECNT, INV.INVOICEDUE, INV.INVOICETOLLDUE, INV.ILTOLLDUE, INV.ILTOLLCNT, INV.CREATEDDATE, INV.CREATEDUSER, INV.UPDATEDDATE, INV.UPDATEDUSER FROM PBI.NOTICE_SUMMARY AS INV WHERE INV.INVOICEDUE > 0 AND DATEDIFF(DAY, INV.REQUESTEDDATE, GETDATE()) > 30;</td>
+      <td>Low</td>
+      <td>1.90 seconds</td>
+      <td>2.61 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Retrieve all notices issued along with the total toll due and invoice amount per location.</td>
+      <td>SELECT n.ID AS NoticeID, n.REQUESTEDDATE AS NoticeRequestedDate, n.TEMPLATENAME AS NoticeTemplateName, n.NOTICECNT AS NoticeCount, n.INVOICEDUE AS InvoiceDueAmount, n.ILTOLLDUE AS TollDueAmount, l.LOCATIONID AS LocationID, l.LOCATIONCODE AS LocationCode, l.LOCATIONNAME AS LocationName FROM PBI.NOTICE_SUMMARY AS n JOIN dbo.Locations AS l ON l.LOCATIONCODE = n.TEMPLATENAME</td>
+      <td>Low</td>
+      <td>1.76 seconds</td>
+      <td>0.33 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Find the total number of transactions per agency where the paid amount exceeds $5000 in the last three months.</td>
+      <td>SELECT \n    AGENCYID, \n    COUNT(*) AS TotalTransactions\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE \n    PAIDAMT > 5000 \n    AND TRIPSTATUSDATE >= DATEADD(MONTH, -3, GETDATE())\nGROUP BY \n    AGENCYID\n</td>
+      <td>Low</td>
+      <td>1.29 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>List all transactions that have been refunded.</td>
+      <td>SELECT Id, ADJUSTMENTDATE, ADJUSTMENTTYPE, ADJUSTMENTTRANSACTION, TXNAMOUNT, CREATEDDATE, CREATEDUSER FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTTYPE = 'Refund';</td>
+      <td>Low</td>
+      <td>0.96 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Get the details of the latest payment made.</td>
+      <td>SELECT TOP 1 Id, PAYMENTDATE, PAYMENTTYPE, PAYMNETSTATUS, PMTMODE, ACCOUNTSTATUS, ACCOUNTTYPES, TXNAMOUNT, NOOFPMTS, CREATEDDATE, CREATEDUSER FROM PBI.PAYMENTSINFO ORDER BY PAYMENTDATE DESC;</td>
+      <td>Low</td>
+      <td>1.45 seconds</td>
+      <td>0.31 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Find the latest 10 adjustments made to accounts.</td>
+      <td>SELECT TOP 10 Id, ADJUSTMENTDATE, ADJUSTMENTTYPE, ADJUSTMENTTRANSACTION, TXNAMOUNT, CREATEDDATE, CREATEDUSER FROM PBI.ADJUSTMENTSINFO ORDER BY ADJUSTMENTDATE DESC;</td>
+      <td>Low</td>
+      <td>1.13 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Retrieve all disputes along with their affidavit details.</td>
+      <td>SELECT SNO, AFFIDAVITCREATEDDATE, AFFIDAVITTYPE, REQUESTEDSTATUS, LOCATIONCODE, CNT, TOLLCNT, TOLLAMOUNT, INVOICECNT, INVOICEAMT, CREATEDDATE, CREATEDBY, UPDATEDDATE, UPDATEDBY FROM PBI.DISPUTES_SUMMARY_V2;</td>
+      <td>Low</td>
+      <td>1.23 seconds</td>
+      <td>22.29 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Get the latest recorded liquidation data from the last 30 days</td>
+      <td>SELECT \n    FileMonthYear,\n    FILERECEIVEDATE,\n    InvoiceMonthYear,\n    InvoiceMonthYearToorder,\n    MonthNumber,\n    InvMonthNumber,\n    CITATIONSTAGE,\n    AGENCYID,\n    LOCATIONID,\n    ENTRYPLAZAID,\n    ENTRYLANEID,\n    PaidCount,\n    PAIDAMT,\n    CHARGEDAMOUNT,\n    TOTALCNT,\n    JOBRUNDATE,\n    TRIPSTATUSDATE\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE \n    FILERECEIVEDATE >= DATEADD(DAY, -30, GETDATE());\n</td>
+      <td>Low</td>
+      <td>1.49 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Find the total amount collected for each plaza for the current fiscal year</td>
+      <td>SELECT \n    PLAZACODE,\n    SUM(TOLLAMOUNT) AS TotalCollectedAmount\nFROM \n    REPORTS.PAIDTRANSACTION_DETAILS_AMT\nWHERE \n    FILE_RECEIVED_DATE >= DATEFROMPARTS(YEAR(GETDATE()), 7, 1) \n    AND FILE_RECEIVED_DATE < DATEFROMPARTS(YEAR(GETDATE()) + 1, 7, 1)\nGROUP BY \n    PLAZACODE\nORDER BY \n    TotalCollectedAmount DESC;\n</td>
+      <td>Low</td>
+      <td>1.52 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.PAIDTRANSACTION_DETAILS_AMT` contains 37,800,833 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Find all invoices that have been generated but not yet paid in the last 60 days</td>
+      <td>SELECT ID, REQUESTEDDATE, TEMPLATENAME, NOTICECNT, INVOICEDUE, INVOICETOLLDUE, ILTOLLDUE, ILTOLLCNT, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM PBI.NOTICE_SUMMARY WHERE REQUESTEDDATE >= DATEADD(DAY, -60, GETDATE()) AND INVOICEDUE > 0 AND ILTOLLDUE > 0;</td>
+      <td>Low</td>
+      <td>1.43 seconds</td>
+      <td>0.42 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Show the details of all payments that failed.</td>
+      <td>SELECT Id, PAYMENTDATE, PAYMENTTYPE, PAYMNETSTATUS, PMTMODE, ACCOUNTSTATUS, ACCOUNTTYPES, TXNAMOUNT, NOOFPMTS, CREATEDDATE, CREATEDUSER FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'Failed';</td>
+      <td>Low</td>
+      <td>1.19 seconds</td>
+      <td>5.32 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Find all disputed transactions that resulted in a refund.</td>
+      <td>SELECT SNO, AFFIDAVITCREATEDDATE, AFFIDAVITTYPE, REQUESTEDSTATUS, LOCATIONCODE, CNT, TOLLCNT, TOLLAMOUNT, INVOICECNT, INVOICEAMT, CREATEDDATE, CREATEDBY, UPDATEDDATE, UPDATEDBY FROM PBI.DISPUTES_SUMMARY_V2 WHERE REQUESTEDSTATUS = 'Refunded';</td>
+      <td>Low</td>
+      <td>1.36 seconds</td>
+      <td>0.30 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>List all high-value disputes along with their affidavit details and requested statuses.</td>
+      <td>SELECT SNO, AFFIDAVITCREATEDDATE, AFFIDAVITTYPE, REQUESTEDSTATUS, LOCATIONCODE, CNT, TOLLCNT, TOLLAMOUNT, INVOICECNT, INVOICEAMT, CREATEDDATE, CREATEDBY, UPDATEDDATE, UPDATEDBY FROM PBI.DISPUTES_SUMMARY_V2 WHERE TOLLAMOUNT > 1000;</td>
+      <td>Low</td>
+      <td>2.04 seconds</td>
+      <td>0.39 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Retrieve all notices that were created but not yet sent.</td>
+      <td>SELECT ID, REQUESTEDDATE, TEMPLATENAME, NOTICECNT, INVOICEDUE, INVOICETOLLDUE, ILTOLLDUE, ILTOLLCNT, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM PBI.NOTICE_SUMMARY WHERE NOTICECNT > 0 AND REQUESTEDDATE IS NULL;</td>
+      <td>Low</td>
+      <td>4.85 seconds</td>
+      <td>0.30 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Find all license plates received in the last week.</td>
+      <td>SELECT ID, FILERECEVIEDDATE, NOOFPLATES, NOOFTXNS, ACCOUNTTYPE, FACILITYCODE, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM PBI.LICENSEPLATES_SUMMURY WHERE FILERECEVIEDDATE >= DATEADD(WEEK, -1, GETDATE());</td>
+      <td>Low</td>
+      <td>1.14 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Show all transactions that have been marked as uncollectible.</td>
+      <td>SELECT \n    UNCOLLTXNDTLID,\n    RMA,\n    FACILITYCODE,\n    PLAZACODE,\n    LANECODE,\n    FILE_RECEIVED_DATE,\n    TRANSACTION_UNCOLLECTABLE,\n    TRNTYPE,\n    CREATEDDATE,\n    UPDATEDDATE\nFROM \n    REPORTS.UNCOLLECTABLETXN_DETAILS;\n</td>
+      <td>Low</td>
+      <td>1.30 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.UNCOLLECTABLETXN_DETAILS` contains 37,059,606 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Find all payments where the mode of payment was changed after processing.</td>
+      <td>SELECT Id, PAYMENTDATE, PAYMENTTYPE, PAYMNETSTATUS, PMTMODE, ACCOUNTSTATUS, ACCOUNTTYPES, TXNAMOUNT, NOOFPMTS, CREATEDDATE, CREATEDUSER FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'Processed' AND PMTMODE != (SELECT PMTMODE FROM PBI.PAYMENTSINFO AS InnerTable WHERE InnerTable.Id = PBI.PAYMENTSINFO.Id AND CREATEDDATE = (SELECT MIN(CREATEDDATE) FROM PBI.PAYMENTSINFO WHERE Id = InnerTable.Id));</td>
+      <td>Low</td>
+      <td>2.11 seconds</td>
+      <td>0.32 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Show all transactions where the trust status date falls within the last 15 days and has a valid payment status.</td>
+      <td>SELECT PAIDTXNDTLID, RMA, FACILITYCODE, PLAZACODE, LANECODE, FILE_RECEIVED_DATE, TRIPSTATUSDATE, PAIDCOUNT, CREATEDDATE, YYYYMMDD FROM REPORTS.PAIDTRANSACTION_DETAILS WHERE TRIPSTATUSDATE >= DATEADD(DAY, -15, GETDATE()) AND PAIDCOUNT > 0;</td>
+      <td>Low</td>
+      <td>1.88 seconds</td>
+      <td>0.28 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Find all notices where the invoice due amount is greater than $1000.</td>
+      <td>SELECT ID, REQUESTEDDATE, TEMPLATENAME, NOTICECNT, INVOICEDUE, INVOICETOLLDUE, ILTOLLDUE, ILTOLLCNT, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM PBI.NOTICE_SUMMARY WHERE INVOICEDUE > 1000;</td>
+      <td>Low</td>
+      <td>1.34 seconds</td>
+      <td>4.70 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>List all transactions from the last 6 months where the paid amount is greater than the charged amount.</td>
+      <td>SELECT \n    FileMonthYear,\n    FILERECEIVEDATE,\n    InvoiceMonthYear,\n    InvoiceMonthYearToorder,\n    MonthNumber,\n    InvMonthNumber,\n    CITATIONSTAGE,\n    AGENCYID,\n    LOCATIONID,\n    ENTRYPLAZAID,\n    ENTRYLANEID,\n    PaidCount,\n    PAIDAMT,\n    CHARGEDAMOUNT,\n    TOTALCNT,\n    JOBRUNDATE,\n    TRIPSTATUSDATE\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE \n    FILERECEIVEDATE >= DATEADD(MONTH, -6, GETDATE())\n    AND PAIDAMT > CHARGEDAMOUNT;\n</td>
+      <td>Low</td>
+      <td>1.84 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>Show the total count of invoices grouped by location.</td>
+      <td>SELECT l.LOCATIONNAME, COUNT(li.InvoiceMonthYear) AS TotalInvoices FROM dbo.Locations l INNER JOIN REPORTS.LIQUIDATIONDATABYINVDATE li ON l.LOCATIONID = li.LOCATIONID GROUP BY l.LOCATIONNAME;</td>
+      <td>Low</td>
+      <td>1.32 seconds</td>
+      <td>0.69 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>Retrieve the number of disputed transactions per agency.</td>
+      <td>SELECT \n    R.AGENCYID,\n    COUNT(DISTINCT D.SNO) AS DisputedTransactionCount\nFROM \n    PBI.DISPUTES_SUMMARY_V2 D\nJOIN \n    REPORTS.LIQUIDATIONDATABYINVDATE R\nON \n    D.LOCATIONCODE = R.LOCATIONID\nGROUP BY \n    R.AGENCYID;\n</td>
+      <td>Low</td>
+      <td>1.10 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>Get a report of paid and uncollectible transactions per plaza ID for the last 12 months, including amounts above $100.</td>
+      <td>SELECT DISTINCT FILE_RECEIVED_DATE \n    FROM REPORTS.PAIDTRANSACTION_DETAILS\n    WHERE FILE_RECEIVED_DATE >= DATEADD(MONTH, -12, GETDATE())\n    UNION\n    SELECT DISTINCT FILE_RECEIVED_DATE \n    FROM REPORTS.UNCOLLECTABLETXN_DETAILS\n    WHERE FILE_RECEIVED_DATE >= DATEADD(MONTH, -12, GETDATE())\n)\nSELECT \n    ptd.PLAZACODE AS PlazaID,\n    SUM(CASE WHEN pta.TOLLAMOUNT > 100 THEN pta.TOLLAMOUNT ELSE 0 END) AS PaidAmountAbove100,\n    SUM(CASE WHEN uta.TOLLAMOUNT > 100 THEN uta.TOLLAMOUNT ELSE 0 END) AS UncollectibleAmountAbove100\nFROM REPORTS.PAIDTRANSACTION_DETAILS_AMT pta\nJOIN Last12Months l12m ON pta.FILE_RECEIVED_DATE = l12m.FILE_RECEIVED_DATE\nJOIN REPORTS.UNCOLLECTABLETXN_DETAILS_AMT uta \n    ON pta.PLAZACODE = uta.PLAZACODE AND \n       pta.FILE_RECEIVED_DATE = uta.FILE_RECEIVED_DATE\nJOIN REPORTS.PAIDTRANSACTION_DETAILS ptd \n    ON ptd.PAIDTXNDTLID = pta.PAIDTXNDTLID\nGROUP BY \n    ptd.PLAZACODE;\n</td>
+      <td>Low</td>
+      <td>3.18 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.UNCOLLECTABLETXN_DETAILS` contains 37,059,606 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>Retrieve the last 5 transactions recorded in the system.</td>
+      <td>SELECT TOP 5 \n    UNCOLLTXNDTLID, \n    RMA, \n    FACILITYCODE, \n    PLAZACODE, \n    LANECODE, \n    FILE_RECEIVED_DATE, \n    TRANSACTION_UNCOLLECTABLE, \n    TRNTYPE, \n    TOLLAMOUNT, \n    CREATEDDATE, \n    UPDATEDDATE\nFROM REPORTS.UNCOLLECTABLETXN_DETAILS_AMT\nORDER BY CREATEDDATE DESC;\n</td>
+      <td>Low</td>
+      <td>1.79 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.UNCOLLECTABLETXN_DETAILS_AMT` contains 607,583 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>Retrieve all invoices that are overdue by more than 60 days.</td>
+      <td>SELECT ID, REQUESTEDDATE, TEMPLATENAME, NOTICECNT, INVOICEDUE, INVOICETOLLDUE, ILTOLLDUE, ILTOLLCNT, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM dbo.NOTICE_SUMMARY WHERE DATEDIFF(DAY, REQUESTEDDATE, GETDATE()) > 60;</td>
+      <td>Low</td>
+      <td>1.35 seconds</td>
+      <td>2.85 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>Retrieve all customer complaints made last week.</td>
+      <td>SELECT SNO, AFFIDAVITCREATEDDATE, AFFIDAVITTYPE, REQUESTEDSTATUS, LOCATIONCODE, CNT, TOLLCNT, TOLLAMOUNT, INVOICECNT, INVOICEAMT, CREATEDDATE, CREATEDBY, UPDATEDDATE, UPDATEDBY FROM PBI.DISPUTES_SUMMARY_V2 WHERE AFFIDAVITCREATEDDATE >= DATEADD(WEEK, -1, CAST(GETDATE() AS DATE)) AND AFFIDAVITCREATEDDATE < CAST(GETDATE() AS DATE);</td>
+      <td>Low</td>
+      <td>3.07 seconds</td>
+      <td>0.43 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>Show all transactions where the toll charge was incorrect.</td>
+      <td>SELECT \n    UNCOLLTXNDTLID, \n    RMA, \n    FACILITYCODE, \n    PLAZACODE, \n    LANECODE, \n    FILE_RECEIVED_DATE, \n    TRANSACTION_UNCOLLECTABLE, \n    TRNTYPE, \n    TOLLAMOUNT, \n    CREATEDDATE, \n    UPDATEDDATE\nFROM \n    REPORTS.UNCOLLECTABLETXN_DETAILS_AMT\nWHERE \n    TRNTYPE = 'Incorrect Toll Charge';\n</td>
+      <td>Low</td>
+      <td>1.64 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.UNCOLLECTABLETXN_DETAILS_AMT` contains 607,583 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>Find the total revenue generated per month in the last 6 months.</td>
+      <td>SELECT FORMAT(PAYMENTDATE, 'yyyy-MM') AS RevenueMonth, SUM(TXNAMOUNT) AS TotalRevenue FROM PBI.PAYMENTSINFO WHERE PAYMENTDATE >= DATEADD(MONTH, -6, GETDATE()) GROUP BY FORMAT(PAYMENTDATE, 'yyyy-MM') ORDER BY RevenueMonth;</td>
+      <td>Low</td>
+      <td>3.69 seconds</td>
+      <td>0.35 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>Find the total number of disputes for a specific location NE49.</td>
+      <td>SELECT SUM(CNT) AS TotalDisputes FROM PBI.DISPUTES_SUMMARY_V2 WHERE LOCATIONCODE = 'NE49';</td>
+      <td>Low</td>
+      <td>1.07 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>List all invoices due this month.</td>
+      <td>SELECT ID, REQUESTEDDATE, TEMPLATENAME, NOTICECNT, INVOICEDUE, INVOICETOLLDUE, ILTOLLDUE, ILTOLLCNT, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM PBI.NOTICE_SUMMARY WHERE MONTH(REQUESTEDDATE) = MONTH(GETDATE()) AND YEAR(REQUESTEDDATE) = YEAR(GETDATE());</td>
+      <td>Low</td>
+      <td>2.06 seconds</td>
+      <td>0.41 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>Get the number of transactions grouped by facility code</td>
+      <td>SELECT FACILITYCODE, COUNT(*) AS TransactionCount FROM REPORTS.LOADEDTRANSACTION_DETAILS GROUP BY FACILITYCODE</td>
+      <td>Low</td>
+      <td>0.65 seconds</td>
+      <td>0.35 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>Show the number of high-value payments recorded this year.</td>
+      <td>SELECT COUNT(*) AS HighValuePaymentsCount FROM PBI.HVPAYMENTSREPORT WHERE YEAR(PAYMENTDATE) = YEAR(GETDATE());</td>
+      <td>Low</td>
+      <td>0.70 seconds</td>
+      <td>0.31 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td>Get the details of the latest transaction recorded per facility.</td>
+      <td>SELECT FACILITYCODE, LOADEDTXNDTLID, RMA, PLAZACODE, LANECODE, FILE_RECEIVED_DATE, TRANSACTION_BILLED, CREATED_DATE, UPDATED_DATE, YYYYMMDD FROM REPORTS.LOADEDTRANSACTION_DETAILS WHERE CREATED_DATE = ( SELECT MAX(CREATED_DATE) FROM REPORTS.LOADEDTRANSACTION_DETAILS AS sub WHERE sub.FACILITYCODE = REPORTS.LOADEDTRANSACTION_DETAILS.FACILITYCODE );</td>
+      <td>Low</td>
+      <td>1.52 seconds</td>
+      <td>8.64 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>Show the number of invoices issued per month in the last year.</td>
+      <td>SELECT FORMAT(REQUESTEDDATE, 'yyyy-MM') AS InvoiceMonth, COUNT(ID) AS InvoiceCount FROM PBI.NOTICE_SUMMARY WHERE REQUESTEDDATE >= DATEADD(YEAR, -1, GETDATE()) GROUP BY FORMAT(REQUESTEDDATE, 'yyyy-MM') ORDER BY InvoiceMonth;</td>
+      <td>Low</td>
+      <td>0.92 seconds</td>
+      <td>0.30 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td>Show liquidation data from the last 3 to 6 months.</td>
+      <td>SELECT \n    FileMonthYear, \n    FILERECEIVEDATE, \n    InvoiceMonthYear, \n    InvoiceMonthYearToorder, \n    MonthNumber, \n    InvMonthNumber, \n    CITATIONSTAGE, \n    AGENCYID, \n    LOCATIONID, \n    ENTRYPLAZAID, \n    ENTRYLANEID, \n    PaidCount, \n    PAIDAMT, \n    CHARGEDAMOUNT, \n    TOTALCNT, \n    JOBRUNDATE, \n    TRIPSTATUSDATE\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE \n    FILERECEIVEDATE >= DATEADD(MONTH, -6, GETDATE()) \n    AND FILERECEIVEDATE < DATEADD(MONTH, -3, GETDATE());\n</td>
+      <td>Low</td>
+      <td>1.99 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>Get a count of all notices issued per location in the last month.</td>
+      <td>SELECT L.LOCATIONID, L.LOCATIONNAME, COUNT(PNS.ID) AS NoticesIssuedCount FROM dbo.Locations L INNER JOIN PBI.NOTICE_SUMMARY PNS ON L.LOCATIONCODE = PNS.TEMPLATENAME WHERE PNS.REQUESTEDDATE >= DATEADD(MONTH, -1, GETDATE()) AND PNS.REQUESTEDDATE < GETDATE() GROUP BY L.LOCATIONID, L.LOCATIONNAME</td>
+      <td>Low</td>
+      <td>1.43 seconds</td>
+      <td>0.29 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td>Show the highest payment made last week.</td>
+      <td>SELECT TOP 1 Id, PAYMENTDATE, PAYMENTTYPE, PAYMNETSTATUS, PMTMODE, ACCOUNTSTATUS, ACCOUNTTYPES, TXNAMOUNT, NOOFPMTS, CREATEDDATE, CREATEDUSER FROM PBI.PAYMENTSINFO WHERE PAYMENTDATE >= DATEADD(DAY, -7, CAST(GETDATE() AS DATE)) ORDER BY TXNAMOUNT DESC;</td>
+      <td>Low</td>
+      <td>1.31 seconds</td>
+      <td>0.31 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td>Find the average toll amount paid by users.</td>
+      <td>SELECT \n    AVG(TOLLAMOUNT) AS AverageTollAmountPaid\nFROM \n    REPORTS.PAIDTRANSACTION_DETAILS_AMT;\n</td>
+      <td>Low</td>
+      <td>0.84 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.PAIDTRANSACTION_DETAILS_AMT` contains 37,800,833 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td>Show all invoices where a user has pending payments</td>
+      <td>SELECT ID, REQUESTEDDATE, TEMPLATENAME, NOTICECNT, INVOICEDUE, INVOICETOLLDUE, ILTOLLDUE, ILTOLLCNT, CREATEDDATE, CREATEDUSER, UPDATEDDATE, UPDATEDUSER FROM PBI.NOTICE_SUMMARY WHERE INVOICEDUE > 0;</td>
+      <td>Low</td>
+      <td>1.34 seconds</td>
+      <td>6.06 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td>Find the total number of completed transactions per agency in the last year where the paid amount exceeds $5000.</td>
+      <td>SELECT \n    AGENCYID, \n    SUM(PaidCount) AS TotalCompletedTransactions\nFROM \n    REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE \n    PAIDAMT > 5000 AND\n    JOBRUNDATE >= DATEADD(YEAR, -1, GETDATE())\nGROUP BY \n    AGENCYID;\n</td>
+      <td>Low</td>
+      <td>0.95 seconds</td>
+      <td>N/A</td>
+      <td>PASS</td>
+      <td>Execution restricted due to validation warnings: ⚠️ The table `REPORTS.LIQUIDATIONDATABYINVDATE` contains 5,313,014 records. To enhance query performance and reduce processing time, consider applying more specific filtering conditions.</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>Retrieve the total amount of invoices processed last quarter.</td>
+      <td>SELECT SUM(INVOICEDUE) AS TotalInvoiceAmount FROM dbo.NOTICE_SUMMARY WHERE DATEPART(QUARTER, REQUESTEDDATE) = DATEPART(QUARTER, DATEADD(QUARTER, -1, GETDATE())) AND YEAR(REQUESTEDDATE) = YEAR(DATEADD(QUARTER, -1, GETDATE()));</td>
+      <td>Low</td>
+      <td>2.14 seconds</td>
+      <td>0.32 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx1 = document.getElementById("testResultsChart").getContext("2d");
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ["Passed", "Failed"],
+                    datasets: [{
+                        data: [49, 1],  
+                        backgroundColor: ["#28a745", "#dc3545"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            var ctx2 = document.getElementById("complexityChart").getContext("2d");
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ["Low", "Medium", "High", "Very High"],
+                    datasets: [{
+                        label: "Complexity Distribution",
+                        data: [50, 0, 0, 0],
+                        backgroundColor: ["#17a2b8", "#ffc107", "#fd7e14", "#dc3545"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

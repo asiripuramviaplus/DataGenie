@@ -1,0 +1,544 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  /* Prevent body from scrolling */
+}
+
+.dashboard-container{
+  font-family: 'Inter', sans-serif;
+  margin-top: 120px;
+  padding: 20px 80px;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+}
+
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  /* As defined already */
+  padding: 22px 80px 22px 80px;
+  gap: 8px;
+  z-index: 1000;
+  display: inline;
+  /* Change from inline to flex */
+  align-items: center;
+  /* Ensure items are vertically centered */
+  background-color: #ffffff;
+  justify-content: space-between;
+}
+ 
+.header {
+  display: flex;
+  /* Change from inline to flex */
+  justify-content: space-between;
+  align-items: center;
+  /* Ensure items are vertically centered */
+  height: 35px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+ 
+.header-left {
+  display: flex;
+  align-items: center;
+  /* Ensure logo and text are in the same line */
+  }
+ 
+.header-left .logo {
+  margin-right: 10px;
+  /* Add some space between the logo and the text */
+}
+ 
+.header .header-left .title {
+  font-style: inter;
+  font-weight: 700;
+  font-size: 18.64px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+ 
+ 
+.header-right {
+  display: flex;
+  /* Add flex display */
+  align-items: center;
+  /* Ensure items are vertically centered */
+  width: 248px;
+  gap: 24px;
+}
+ 
+.header-right .login,
+.header-right .create-account {
+  width: auto;
+  /* Adjust width to fit text in one line */
+  border-radius: 20px;
+  /* Rounded corners */
+  border: 1px solid #000;
+  /* Black border */
+  padding: 8px 16px;
+  /* Padding */
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  /* Medium weight */
+  font-size: 14px;
+  /* Font size */
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000;
+  /* Black text color */
+  background-color: white;
+  /* Background color */
+  text-align: center;
+  /* Center text */
+  cursor: pointer;
+  /* Pointer cursor */
+  transition: background-color 0.3s, color 0.3s;
+  /* Smooth transition */
+}
+ 
+.header-right .login:hover,
+.header-right .create-account:hover {
+  background-color: #000;
+  /* Black background color on hover */
+  color: white;
+  /* White text color on hover */
+}
+ 
+.dashboard-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  /* color: #333; */
+}
+ 
+.dashboard button {
+  background-color: white;
+  /* Blue background */
+  color: black;
+  /* White text */
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  /* Adjust font size */
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0%;
+  border: 1px solid #000;
+  /* Add border */
+  border-radius: 20px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Show pointer on hover */
+  transition: background-color 0.3s, transform 0.2s;
+}
+ 
+.dashboard button:hover {
+  transform: scale(1.05);
+}
+
+.table-title{
+  font-size: 20px; 
+  font-weight: 600;
+  margin: 0.5rem 0rem;
+}
+
+.table-container {
+  border: 1px solid #e9edf5;
+  border-radius: 12px;
+  overflow-x: auto;
+  width: 100%;
+  margin-top: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 5px 12px 24px;
+  border-bottom: 1px solid #e9edf5;
+  white-space: nowrap;
+  gap: 12px;
+}
+
+th {  
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: #464F60;
+  background: #F9FAFB;
+  top: 0; 
+  z-index: 1;
+}
+
+td{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+tbody tr{
+  background-color: white;
+}
+
+tbody tr:hover {
+  background-color: #139CB025; 
+}
+
+/* 
+.table-wrapper tr:nth-child(odd),
+.table-wrapper tr:nth-child(even) {
+  background-color: transparent !important; 
+}
+.ticket-table-wrapper {
+  margin-top: 20px;
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid #e9edf5;
+  border-radius: 12px;
+}
+ 
+.ticket-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table {
+  width: 100%;
+}
+
+.ticket-table-wrapper th,
+.ticket-table-wrapper td {
+  text-align: left;
+  padding: 12px 5px 12px 24px;
+  border-bottom: 1px solid #e9edf5;
+  white-space: nowrap;
+  gap: 12px;
+}
+ 
+.ticket-table-wrapper th {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: #464F60;
+  background-color: #F9FAFB;
+  top: 0; 
+  z-index: 1; 
+}
+ 
+.ticket-table-wrapper td {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.tbody tr:hover {
+  background-color: #139CB025; 
+} */
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+ 
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Four cards in one row */
+  gap: 20px;
+  justify-items: flex-start;
+  /* Center align the cards */
+}
+ 
+.stat-card {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure all stat-cards have the same height */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 150px; /* Set a fixed height */
+  min-height: 150px; /* Ensure a minimum height */
+  max-height: 150px; /* Ensure a maximum height */
+  /* margin: 10px; Add spacing between cards */
+  box-sizing: border-box; /* Include padding and border in height calculation */
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+ 
+.stat-card .stat-value {
+  font-size: 24px;
+  /* Larger font for the value */
+  font-weight: bold;
+}
+ 
+.stat-card .stat-label {
+  font-size: 14px;
+  /* Smaller font for the label */
+  margin-top: 10px;
+  color: #f0f0f0;
+  /* Slightly lighter text color */
+}
+ 
+ngx-charts-line-chart {
+  overflow: hidden;
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  /* resize: both;  */
+  /* Allow resizing */
+  object-fit: contain; /* Ensure the chart scales proportionally */
+}
+ 
+.charts-section {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+ 
+.line-chart-container,
+.pie-chart-container {
+  background: white;
+  border-radius: 2%; 
+  padding: 2%; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+}
+
+/* .pie-chart-container .chart-legend .legend-labels{
+  width: 400% !important;
+} */
+ 
+.pie-chart-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+ngx-charts-line-chart {
+  width: 100%; 
+  height: 100%;
+  display: block;
+}
+ 
+/* ngx-charts-legend.chart-legend {
+  margin-right: 20px; 
+} */
+
+.ticket-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Four cards in one row */
+  gap: 20px;
+  justify-items: center;
+  /* Center align the cards */
+}
+ 
+.purple {
+  background-color: #6a1b9a;
+}
+ 
+.blue {
+  background-color: #1e88e5;
+}
+ 
+.yellow {
+  background-color: #fdd835;
+}
+ 
+.red {
+  background-color: #e53935;
+}
+ 
+/* .chart-container {
+  margin-top: 40px;
+} */
+ 
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ 
+.period-toggle {
+  margin-left: auto;
+}
+ 
+.mat-mdc-card {
+  /* background-color: transparent !important;  */
+  box-shadow: none !important;
+}
+ 
+.ticket-table-container {
+  /* margin-top: 40px; */
+  text-align: left;
+  /* overflow-y: auto; */
+  /* max-height: calc(100vh - 200px);  */
+  height: auto;
+  margin-bottom: 100px;
+  /* height: 1000px; Adjust height as needed */
+}
+ 
+table {
+  overflow-x: auto;
+}
+ 
+/* Responsive Table */
+@media (max-width: 768px) {
+  .ticket-table-container table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+h3{
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 4px 8px; /* Add padding to accommodate the icon */
+  background: white;
+  width: 315px; /* Reduced width */
+  height: 34px; /* Reduced height */
+  border-radius: 25px; /* More rounded */
+  border: 1px solid #D0D3D880; /* Light gray border */
+  box-shadow: none;
+  margin-right: 15px;
+}
+
+.search-icon {
+  font-size: 12px; /* Smaller icon */
+  color: #5b6871; /* Lighter gray icon color */
+  margin-right: 4px;
+  background: #33a6b8; /* Light blue background */
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  /* margin-left: 2px; Add margin to prevent it from coming out of the box */
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  font-size: 12px; /* Smaller text */
+  outline: none;
+  flex: 1;
+  color: #5b6871; /* Light gray text */
+}
+
+.search-box::after {
+  display: none; /* Removed underline */
+}
+ 
+.table-header-cell {
+  display: flex;
+  align-items: center;
+  /* Align text and icons vertically */
+  gap: 8px;
+  /* Add space between text and icons */
+}
+ 
+  .sort-icons .active {
+    color: #1f2937; /* Darker shade for active sorting */
+  }
+  
+  .sort-icons {
+    color: #868FA0;
+    display: flex;
+    flex-direction: column;
+    font-size: 8px;
+    height: 100%; /* Ensures arrows take full height */
+    justify-content: center; /* Aligns arrows vertically */
+    position: relative;
+    top: -2px; /* Moves arrows slightly up */
+    line-height: 1;
+    /* gap: 1px; Reduce the space between the icons */
+  }
+  
+  .sort-icons span {
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+    line-height: 1;
+  }
+  
+  .sort-icons span:hover {
+    color: #374151; /* Darker color on hover */
+  }
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Two charts in one row */
+  gap: 20px;
+  justify-items: center;
+  /* Center align the charts */
+}
+ 
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+ 
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #014990;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+ 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+ 
+  100% {
+    transform: rotate(360deg);
+  }
+}

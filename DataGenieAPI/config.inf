@@ -1,0 +1,39 @@
+[LOGGING]
+# Specifies the path where log files will be stored and the logging level (DEBUG, INFO, WARNING, ERROR)
+LOG_PATH=C:\Projects\CTRMAMETRICS\Logs
+LOG_LEVEL=DEBUG
+
+[DATABASE-NEW-DB]
+# Configuration for connecting to the SQL Server database
+SERVER = <{Please provide valid SQL Server Host}>
+DATABASE=<Please provide SQL Server database>
+USERNAME=<{Please provide valid SQL Server Username}>
+PASSWORD=<{Please provide valid SQL Server Password}>
+OPTIONS=MultipleActiveResultSets=True;Encrypt=Yes;TrustServerCertificate=Yes;Connection Timeout=120;Login Timeout=30;Pooling=True;Max Pool Size=100;Min Pool Size=5;
+
+
+[AZURE] 
+# Open AI Resource - Viaplus Tenant - Azure OpenAI API configuration for handling AI-based operations
+ENDPOINT = <{Please provide valid Azure OpenAI API endpoint}>
+API_KEY=<{Please provide valid Azure OpenAI API key}>
+API_VERSION =2024-08-01-preview
+DEPLOYMENT = gpt-4o
+
+
+[SMTP]
+; SMTP Configuration
+SERVER = smtp.office365.com
+PORT = 587
+USER = <Please provide valid SMTP username>
+PASSWORD = <Please provide valid SMTP password>
+
+
+[API]
+# Flag to switch between Azure API and Mistral (0 for Mistral, 1 for Azure API)
+FLAG = 1
+
+[EMAIL]
+RECIPIENTS = abhagat@ViaPlus.com,skunchavarapu@Viaplus.com,vchindukuru@viaplus.com,asiripuram@ViaPlus.com
+TO_EMAILS = asiripuram@ViaPlus.com
+CC_EMAILS = abhagat@ViaPlus.com,skunchavarapu@Viaplus.com,vchindukuru@viaplus.com,asiripuram@ViaPlus.com
+

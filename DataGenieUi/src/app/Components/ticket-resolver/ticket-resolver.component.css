@@ -1,0 +1,586 @@
+/* General container styling */
+.container {
+  position: relative;
+  max-width: 90%; /* Use percentage for responsiveness */
+  margin: 75px auto 20px auto;
+  font-family: 'Inter', sans-serif;
+  background-color: white;
+  border-radius: 12px;
+  /* padding: 20px; Add padding for spacing */
+  padding: 20px 20px 70px 20px; /* top: 20px, right: 10px, bottom: 30px, left: 5px */
+
+  /* box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); */
+}
+
+/* Heading styling */
+h2 {
+  color: #111827;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Loading and error messages */
+.loading, .error {
+  font-size: 16px;
+  font-weight: bold;
+  color: #DC2626;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Filter container styling */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-container > * {
+  flex: 1; /* Make all child elements take equal space */
+  min-width: 200px; /* Prevent elements from shrinking too much */
+}
+
+.filter-container label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin-right: 8px;
+}
+
+.filterlabel {
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.filter-container input[type="text"],
+.filter-container select {
+  padding: 8px 12px;
+  border: 1px solid #D0D3D8;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Dropdown styling for filters */
+.filter-container select {
+  appearance: none; /* Remove default browser styling */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  background-color: white; /* Ensure the background is white */
+  background-image: linear-gradient(45deg, transparent 50%, black 50%), 
+                    linear-gradient(-45deg, transparent 50%, black 50%);
+  background-position: right 12px center, right 6px center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 24px; /* Add space for the triangle */
+  border: 1px solid #D0D3D8;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Search Container Styling */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+/* Search Box Styling */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 4px 8px;
+  background: white;
+  width: 100%; /* Adjust width dynamically */
+  max-width: 400px; /* Set a max width */
+  height: 32px; /* Allow height to adjust */
+  border-radius: 25px;
+  border: 1px solid #D0D3D880;
+  box-shadow: none;
+  /* margin-bottom: 20px; */
+}
+
+.search-icon {
+  font-size: 10px; /* Decrease font size */
+  color: #5b6871;
+  margin-right: 4px;
+  background: #33a6b8;
+  padding: 2px; /* Reduce padding */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; /* Reduce width */
+  height: 14px; /* Reduce height */
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  outline: none;
+  flex: 1;
+  color: #5b6871;
+}
+
+/* Updated Ticket Summary Styling */
+.ticket-summary {
+  display: inline-flex; /* Ensure all items are inline */
+  gap: 8px; /* Reduce gap for compactness */
+  align-items: center;
+  justify-content: flex-start; /* Align items to the left */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Prevent overflow */
+  text-overflow: ellipsis; /* Add ellipsis if content overflows */
+  padding: 4px 0; /* Minimal padding */
+  font-size: 12px; /* Set font size to 12px */
+  font-style: italic; /* Make text italic */
+  /* margin-left: -20px  !important;  */
+}
+
+.summary-item {
+  display: inline; /* Ensure items stay inline */
+  font-size: 12px; /* Ensure consistent font size */
+  color: #495057; /* Neutral text color */
+  font-style: italic; /* Make text italic */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.summary-label {
+  font-weight: bold; /* Emphasize the label */
+  margin-right: 4px; /* Add spacing between label and value */
+}
+
+.summary-value {
+  font-weight: normal; /* Keep the value normal weight */
+}
+
+/* Ticket table wrapper */
+.ticket-table-wrapper {
+  width: 100%; /* Make it fill the full width of the container */
+  overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+  border: 1px solid #D0D3D8;
+  border-radius: 6px;
+}
+
+.ticket-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ticket-table-wrapper table tbody tr {
+  background-color: white !important; /* Ensure all rows are white */
+}
+
+.ticket-table-wrapper table tbody tr:hover {
+  background-color: #139CB025 !important; /* Light green hover effect */
+}
+
+.ticket-table-wrapper th{
+  background-color: #F9FAFB;
+  font-size: 14px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.ticket-table-wrapper td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e9edf5;
+  text-align: left;
+  font-size: 12px; 
+  white-space: nowrap; 
+}
+
+.ticket-table-wrapper td {
+  color: #1d1d1d; 
+  font-weight: normal;
+}
+
+.table-header-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+
+.header-container {
+  display: flex;
+  align-items: center; 
+  gap: 0px; 
+}
+
+.sort-icons {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  gap: 0px; 
+  cursor: pointer;
+  margin-left: 8px; 
+}
+
+.sort-icons span {
+  font-size: 8px;
+  color: #868FA0;
+  line-height: 1;
+}
+
+.sort-icons span:hover {
+  color: #374151; 
+}
+
+/* Button styling */
+button {
+  padding: 6px 12px;
+  background-color: #014990;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #002244;
+}
+
+.resolve-button:disabled {
+  background-color: rgba(16, 16, 16, 0.3);
+  color: white; 
+  cursor: not-allowed; 
+  opacity: 1; 
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid #D0D3D8;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ticket-table-wrapper td select {
+  appearance: none;
+  -webkit-appearance: none; 
+  -moz-appearance: none; /* For Firefox */
+  background-color: white; /* Ensure the background is white */
+  background-image: linear-gradient(45deg, transparent 50%, black 50%), 
+                    linear-gradient(-45deg, transparent 50%, black 50%);
+  background-position: right 12px center, right 6px center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 24px; /* Add space for the triangle */
+  border: 1px solid #D0D3D8;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  max-width: 200px; /* Set a maximum width to prevent overflow */
+  box-sizing: border-box;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/*----------------------------------*/
+/*.ticket-table-wrapper td select:hover {
+  background-color: #014990; 
+  color: white; 
+  box-shadow: 0px 6px 12px rgba(1, 73, 144, 0.3); 
+  cursor: pointer; /* Show pointer cursor on hover 
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}*/
+
+/* Ticket status styling */
+.ticket-status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: normal; /* Change font-weight to normal */
+  text-align: center;
+}
+
+.ticket-status.open {
+  background-color: #007bff;
+  color: white;
+}
+
+.ticket-status.resolved {
+  background-color: #28a745;
+  color: white;
+}
+
+.ticket-status.pending {
+  background-color: #ffc107;
+  color: black;
+}
+
+.ticket-status.escalated {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Adjust button spacing in Actions column */
+.ticket-table-wrapper td button {
+  margin-right: 8px;
+}
+
+/* Resolve button styling */
+.ticket-table-wrapper td button {
+  font-size: 12px; /* Set font size to 12px */
+  margin-right: 8px; /* Maintain spacing between buttons */
+}
+
+.ticket-table-wrapper td.prompt-column {
+  max-width: 600px; /* Slightly decrease the max width */
+  width: 600px; /* Set a fixed width */
+  word-wrap: break-word; /* Ensure long words wrap */
+  white-space: normal; /* Allow text to wrap to the next line */
+}
+
+.ticket-table-wrapper td select {
+  width: 100%; /* Make the dropdown take the full width of the column */
+  max-width: 200px; /* Set a maximum width to prevent overflow */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  font-size: 12px; /* Set font size to 12px */
+}
+
+th, td{
+  border-bottom: 1px solid #e9edf5;
+}
+
+/* Notification styling */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 14px;
+  animation: fadeInOut 4s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Pagination Container */
+.pagination-container {
+  font-family: 'Poppins', sans-serif;
+  height: 40px;
+  padding: 25px 54px 25px 106px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 12px;
+  background-color: white;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  gap: 24px;
+}
+
+.total-records {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Pages container styling */
+.pages {
+  gap: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-weight: normal; /* Remove font weight from the entire container */
+}
+
+/* Page numbers button styling */
+.page-numbers-btn {
+  height: 24px;
+  width: auto;
+  min-width: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black; /* Set default text color to blue */
+  font-weight: normal; /* Remove font weight */
+}
+
+.page-numbers {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-numbers span {
+  display: flex;
+  gap: 4px;
+}
+
+.page-numbers-btn:hover {
+  background-color: #d6d7da;
+  border-radius: 30px;
+}
+
+.pagination-btn:disabled,
+.pagination-btn-1:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* First, Last, Next, and Previous buttons styling */
+.pagination-btn,
+.pagination-btn-1 {
+  background-color: none; /* Remove background color */
+  background: none; /* Ensure no background is applied */
+  border: none; /* Remove border */
+  color: black; /* Set text color to black for First and Last buttons */
+  cursor: pointer;
+  font-weight: normal; /* Remove font weight */
+  font-size: 16px;
+}
+
+.pagination-btn:hover,
+.pagination-btn-1:hover {
+  background-color: none; /* Ensure no hover background color */
+  background: none;
+}
+
+/* Active page styling */
+.active-page {
+  background-color: #014990 !important;
+  color: white !important;
+  border-radius: 30px;
+  font-weight: normal; /* Ensure active page text has no weight */
+  gap: 10px;
+}
+
+.page-size-select {
+  height: 28px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+}
+
+.page-select {
+  border: 1px solid #D0D3D8;
+  border-radius: 4px;
+  width: auto;
+  height: 28px;
+  padding: 0 6px;
+  font-size: 14px;
+}
+.go-to-page span {
+  padding: 0 16px;
+}
+
+.page-size-select option span {
+  font-weight: 600; /* or any desired font-weight */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .filter-container {
+    flex-direction: column; /* Stack filters vertically */
+    gap: 12px;
+  }
+
+  .search-box {
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+
+  .ticket-table-wrapper td {
+    font-size: 12px; /* Reduce font size for smaller screens */
+    padding: 6px 8px;
+  }
+
+  .ticket-summary {
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 16px; /* Reduce gap for smaller screens */
+    justify-content: center; /* Center items */
+  }
+
+  .summary-item {
+    flex: 1 1 calc(33.33% - 16px); /* Make items take equal space */
+    max-width: calc(33.33% - 16px); /* Prevent items from stretching too much */
+    text-align: center; /* Center-align text */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+  .ticket-summary {
+    flex-direction: column; /* Stack items vertically */
+    gap: 12px; /* Reduce gap further */
+  }
+
+  .summary-item {
+    flex: 1 1 100%; /* Make items take full width */
+    max-width: 100%; /* Prevent overflow */
+  }
+}
+
+/* Spinner Styles */
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #007bff; /* Blue spinner */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner-container p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+}

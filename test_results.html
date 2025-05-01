@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Genie - AI-Powered Natural Language to SQL Translation & Test Execution Summary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        h2 {
+            font-weight: bold;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .charts-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 50px; /* Increase spacing after charts */
+        }
+        .chart-container {
+            width: 45%;
+            height: 300px;
+        }
+        .table-container {
+            margin-top: 30px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px; /* Extra margin for better spacing */
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        .table thead th {
+            background-color: #6c8ebf;
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            padding: 14px;
+            font-size: 18px;
+        }
+        .table tbody td {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 14px;
+            font-size: 16px;
+            color: #333;
+        }
+        .table tbody tr:hover {
+            background-color: #eaf0f6;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Data Genie - AI-Powered Natural Language to SQL Translation & Test Execution Summary</h2>
+        <p class="text-center">Data Genie is an intelligent AI-powered tool that translates natural language queries into optimized SQL statements and executes them on a database. It utilizes Azure AI models to generate SQL queries based on schema metadata, ensuring accurate table and column mappings. The tool also validates, corrects, and optimizes queries, analyzing complexity before execution. With built-in query execution tracking, structured logging, and automated reporting.</p>
+
+<div class="panel">
+            <div class="summary text-center">
+                <h4>Overall Test Case Summary -  CTRMA BI Reports Database</h4>
+                <p>
+                    <b>Total Test Cases:</b> 93 | 
+                    <b>Passed:</b> <span class="text-success">81</span> | 
+                    <b>Failed:</b> <span class="text-danger">12</span>
+                </p>
+            </div>
+            <div class="charts-container">
+                <div class="chart-container" style="width: 40%; text-align: center;">
+                    <img src="cid:test_results_chart" alt="Test Results Chart" width="300">
+                </div>
+                <div class="chart-container" style="width: 50%; text-align: center;">
+                    <img src="cid:complexity_chart" alt="Complexity Distribution Chart" width="350">
+                </div>
+            </div>
+        </div>
+        <!-- Add extra space before the table -->
+        <div style="height: 50px;"></div>
+
+        <div class="panel table-container">
+            <table border="1" class="dataframe table table-hover">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Test Case</th>
+      <th>Query</th>
+      <th>Generated SQL</th>
+      <th>Complexity Level</th>
+      <th>Generation Time</th>
+      <th>Execution Time</th>
+      <th>Status</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Show a detailed breakdown of toll amounts collected per month.</td>
+      <td>SELECT \n    FACILITYCODE AS [Facility Code], \n    PLAZACODE AS [Plaza Code], \n    LANECODE AS [Lane Code], \n    FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], \n    FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date], \n    PAIDCOUNT AS [Number of Transactions Paid], \n    TOLLAMOUNT AS [Total Toll Amount] \nFROM \n    REPORTS.PAIDTRANSACTION_DETAILS_AMT \nWHERE \n    YEAR(FILE_RECEIVED_DATE) = YEAR(GETDATE()) \nGROUP BY \n    YEAR(FILE_RECEIVED_DATE), MONTH(FILE_RECEIVED_DATE), FACILITYCODE, PLAZACODE, LANECODE, FILE_RECEIVED_DATE, TRIPSTATUSDATE, PAIDCOUNT, TOLLAMOUNT\nORDER BY \n    YEAR(FILE_RECEIVED_DATE), MONTH(FILE_RECEIVED_DATE)</td>
+      <td>Low</td>
+      <td>15.10 sec</td>
+      <td>3.03 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Show a detailed breakdown of all payment types and their respective transaction amounts.</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], PMTMODE AS [Payment Mode], ACCOUNTSTATUS AS [Account Status], ACCOUNTTYPES AS [Account Types], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments] FROM PBI.PAYMENTSINFO ORDER BY PAYMENTDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.61 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Get a report of all unpaid invoices grouped by location.</td>
+      <td>None</td>
+      <td>N/A</td>
+      <td>4.40 sec</td>
+      <td>N/A</td>
+      <td>FAIL</td>
+      <td>Unknown</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>List all transactions where the invoice amount is greater than $2000.</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Received Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year to Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE CHARGEDAMOUNT > 2000 ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.65 sec</td>
+      <td>1.93 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>List all transactions where the invoice amount is greater than $2000 between agency id 9000000374 to 9000000375</td>
+      <td>SELECT [FileMonthYear], FORMAT([FILERECEIVEDATE], 'MM/dd/yyyy') AS [File Receive Date], [InvoiceMonthYear] AS [Invoice Month Year], [InvoiceMonthYearToorder] AS [Invoice Month Year To Order], [MonthNumber] AS [Month Number], [InvMonthNumber] AS [Invoice Month Number], [CITATIONSTAGE] AS [Citation Stage], [AGENCYID] AS [Agency ID], [LOCATIONID] AS [Location ID], [ENTRYPLAZAID] AS [Entry Plaza ID], [ENTRYLANEID] AS [Entry Lane ID], [PaidCount] AS [Paid Count], [PAIDAMT] AS [Paid Amount], [CHARGEDAMOUNT] AS [Charged Amount], [TOTALCNT] AS [Total Count], FORMAT([JOBRUNDATE], 'MM/dd/yyyy HH:mm:ss') AS [Job Run Date], FORMAT([TRIPSTATUSDATE], 'MM/dd/yyyy') AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE [CHARGEDAMOUNT] > 2000 AND [AGENCYID] BETWEEN 9000000374 AND 9000000375 ORDER BY [FileMonthYear] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.84 sec</td>
+      <td>1.85 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>List all transactions where the invoice amount is greater than $20000 between agency id 9000000374 to 9000000375</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Received Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Ordered Invoice Month Year], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE CHARGEDAMOUNT > 20000 AND AGENCYID BETWEEN 9000000374 AND 9000000375 ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>8.69 sec</td>
+      <td>1.23 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>transactions with invoice amount is greater than $20000 between agency id 9000000374 to 9000000375</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Receive Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE CHARGEDAMOUNT > 20000 AND AGENCYID BETWEEN 9000000374 AND 9000000375 ORDER BY FileMonthYear, FILERECEIVEDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>8.24 sec</td>
+      <td>0.86 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>transactions with invoice amount > $20000 between agency id 9000000374 to 9000000375</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Received Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE CHARGEDAMOUNT > 20000 AND AGENCYID BETWEEN 9000000374 AND 9000000375 ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>8.45 sec</td>
+      <td>1.34 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Show all payments made in the last 3 months.</td>
+      <td>SELECT \n  FORMAT(PAYMENTDATE, 'MM/dd/yyyy') AS [Payment Date], \n  PAYMENTTYPE AS [Payment Type], \n  PAYMNETSTATUS AS [Payment Status], \n  PMTMODE AS [Payment Mode], \n  ACCOUNTSTATUS AS [Account Status], \n  ACCOUNTTYPES AS [Account Types], \n  TXNAMOUNT AS [Transaction Amount], \n  NOOFPMTS AS [Number Of Payments] \nFROM PBI.PAYMENTSINFO \nWHERE PAYMENTDATE >= DATEADD(month, -3, GETDATE()) \nORDER BY PAYMENTDATE ASC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.53 sec</td>
+      <td>0.60 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Find the top 5 locations with the highest number of transactions.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FILE_RECEIVED_DATE AS [File Received Date], TRANSACTION_BILLED AS [Number of Transactions] FROM REPORTS.LOADEDTRANSACTION_DETAILS ORDER BY TRANSACTION_BILLED DESC LIMIT 5</td>
+      <td>Low</td>
+      <td>11.43 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>SQL Execution Error: [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Incorrect syntax near 'LIMIT'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid usage of the option NEXT in the FETCH statement. (153)</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Retrieve the count of all adjustments made in the past quarter.</td>
+      <td>SELECT COUNT(*) AS [Adjustment Count] FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTDATE >= DATEADD(QUARTER, -1, GETDATE())</td>
+      <td>Low</td>
+      <td>5.88 sec</td>
+      <td>0.55 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>List all transactions where the paid amount is greater than the charged amount.</td>
+      <td>SELECT RMA, FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date], PAIDCOUNT AS [Paid Count], TOLLAMOUNT AS [Toll Amount] FROM REPORTS.PAIDTRANSACTION_DETAILS_AMT WHERE TOLLAMOUNT > CHARGEDAMOUNT ORDER BY FILE_RECEIVED_DATE, TRIPSTATUSDATE</td>
+      <td>Low</td>
+      <td>8.88 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>SQL Execution Error: [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'CHARGEDAMOUNT'. (207) (SQLExecDirectW)</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>List all liquidation data available.</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Received Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.63 sec</td>
+      <td>2.61 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Find all invoices that have not been paid yet and are overdue by more than 30 days.</td>
+      <td>SELECT \n    FileMonthYear AS [File Month Year], \n    FILERECEIVEDATE AS [File Received Date], \n    InvoiceMonthYear AS [Invoice Month Year], \n    InvoiceMonthYearToorder AS [Invoice Month Year To Order], \n    MonthNumber AS [Month Number], \n    InvMonthNumber AS [Invoice Month Number], \n    CITATIONSTAGE AS [Citation Stage], \n    AGENCYID AS [Agency ID], \n    LOCATIONID AS [Location ID], \n    ENTRYPLAZAID AS [Entry Plaza ID], \n    ENTRYLANEID AS [Entry Lane ID], \n    PaidCount AS [Paid Count], \n    PAIDAMT AS [Paid Amount], \n    CHARGEDAMOUNT AS [Charged Amount], \n    TOTALCNT AS [Total Count], \n    JOBRUNDATE AS [Job Run Date], \n    TRIPSTATUSDATE AS [Trip Status Date]\nFROM REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE PaidCount = 0\n  AND DATEDIFF(day, TRIPSTATUSDATE, GETDATE()) > 30 ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>10.06 sec</td>
+      <td>2.23 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Retrieve all notices issued along with the total toll due and invoice amount per location.</td>
+      <td>SELECT REQUESTEDDATE AS [Requested Date], TEMPLATENAME AS [Template Name], NOTICECNT AS [Notice Count], INVOICEDUE AS [Invoice Due], INVOICETOLLDUE AS [Invoice Toll Due], ILTOLLDUE AS [Total Toll Due], ILTOLLCNT AS [IL Toll Count] FROM PBI.NOTICE_SUMMARY ORDER BY REQUESTEDDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.03 sec</td>
+      <td>0.55 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Find the total number of transactions per agency where the paid amount exceeds $5000.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], SUM(PAIDCOUNT) AS [Total Transactions], SUM(TOLLAMOUNT) AS [Total Paid Amount] FROM REPORTS.PAIDTRANSACTION_DETAILS_AMT WHERE TOLLAMOUNT > 5000 GROUP BY FACILITYCODE, PLAZACODE ORDER BY FACILITYCODE, PLAZACODE</td>
+      <td>Low</td>
+      <td>7.36 sec</td>
+      <td>1.18 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>List all transactions that have been refunded.</td>
+      <td>SELECT ADJUSTMENTDATE AS [Adjustment Date], ADJUSTMENTTRANSACTION AS [Adjustment Transaction], ADJUSTMENTTYPE AS [Adjustment Type], TXNAMOUNT AS [Transaction Amount] FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTTYPE = 'Refund' ORDER BY [Adjustment Date]</td>
+      <td>Low</td>
+      <td>6.30 sec</td>
+      <td>0.87 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Get the details of the latest payment made.</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], PMTMODE AS [Payment Mode], ACCOUNTSTATUS AS [Account Status], ACCOUNTTYPES AS [Account Types], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments] FROM PBI.PAYMENTSINFO ORDER BY PAYMENTDATE DESC LIMIT 1</td>
+      <td>Low</td>
+      <td>9.56 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>SQL Execution Error: [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Incorrect syntax near 'LIMIT'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid usage of the option NEXT in the FETCH statement. (153)</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Get the details of the latest payments using GPAY</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], PMTMODE AS [Payment Mode], ACCOUNTSTATUS AS [Account Status], ACCOUNTTYPES AS [Account Types], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments] FROM PBI.PAYMENTSINFO WHERE PAYMENTTYPE = 'GPAY' ORDER BY PAYMENTDATE DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.44 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Find the latest 10 adjustments made to accounts.</td>
+      <td>SELECT ADJUSTMENTDATE AS [Adjustment Date], ADJUSTMENTTYPE AS [Adjustment Type], ADJUSTMENTTRANSACTION AS [Adjustment Transaction], TXNAMOUNT AS [Transaction Amount] FROM PBI.ADJUSTMENTSINFO ORDER BY ADJUSTMENTDATE DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.04 sec</td>
+      <td>0.55 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Find the latest 10 adjustments made to accounts filter with credits</td>
+      <td>SELECT ADJUSTMENTDATE AS [Adjustment Date], ADJUSTMENTTYPE AS [Adjustment Type], ADJUSTMENTTRANSACTION AS [Adjustment Transaction], TXNAMOUNT AS [Transaction Amount] \nFROM PBI.ADJUSTMENTSINFO \nWHERE ADJUSTMENTTYPE = 'C' \nORDER BY ADJUSTMENTDATE DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.10 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>list all adjustments made to accounts filter with credits</td>
+      <td>SELECT ADJUSTMENTDATE, ADJUSTMENTTRANSACTION, TXNAMOUNT FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTTYPE = 'C' ORDER BY ADJUSTMENTDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.53 sec</td>
+      <td>0.55 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>list all adjustments made to accounts filter with debits</td>
+      <td>None</td>
+      <td>N/A</td>
+      <td>3.25 sec</td>
+      <td>N/A</td>
+      <td>FAIL</td>
+      <td>Unknown</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>list all adjustments made to accounts filter with debits with tolls</td>
+      <td>SELECT ADJUSTMENTDATE AS [Adjustment Date], ADJUSTMENTTYPE AS [Adjustment Type], ADJUSTMENTTRANSACTION AS [Adjustment Transaction], TXNAMOUNT AS [Transaction Amount] FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTTYPE = 'D' AND ADJUSTMENTTRANSACTION = 'TOLLS' ORDER BY ADJUSTMENTDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.10 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>list all adjustments made to accounts filter with credits with tolls > 100</td>
+      <td>SELECT ADJUSTMENTDATE AS [Adjustment Date], ADJUSTMENTTYPE AS [Adjustment Type], ADJUSTMENTTRANSACTION AS [Adjustment Transaction], TXNAMOUNT AS [Transaction Amount] FROM PBI.ADJUSTMENTSINFO WHERE ADJUSTMENTTYPE = 'C' AND ADJUSTMENTTRANSACTION = 'TOLLS' AND TXNAMOUNT > 100 ORDER BY ADJUSTMENTDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.35 sec</td>
+      <td>0.55 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Get the latest recorded liquidation data.</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FORMAT(FILERECEIVEDATE, 'MM/dd/yyyy') AS [File Receive Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], FORMAT(JOBRUNDATE, 'MM/dd/yyyy HH:mm:ss') AS [Job Run Date], FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE ORDER BY JOBRUNDATE DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>8.68 sec</td>
+      <td>1.69 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Find the total amount collected for each plaza.</td>
+      <td>SELECT PLAZACODE AS [Plaza Code], SUM(TOLLAMOUNT) AS [Total Amount Collected] FROM REPORTS.PAIDTRANSACTION_DETAILS_AMT GROUP BY PLAZACODE ORDER BY PLAZACODE</td>
+      <td>Low</td>
+      <td>9.24 sec</td>
+      <td>3.43 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Find all invoices that have been generated but not yet paid.</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Received Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE PaidCount = 0 ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>10.73 sec</td>
+      <td>3.66 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>Show the details of all payments that failed.</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], PMTMODE AS [Payment Mode], ACCOUNTSTATUS AS [Account Status], ACCOUNTTYPES AS [Account Types], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments] FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'Failed' ORDER BY [Payment Date] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.42 sec</td>
+      <td>3.61 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>Find all disputed transactions that resulted in a refund.</td>
+      <td>SELECT AFFIDAVITCREATEDDATE AS [Affidavit Created Date], AFFIDAVITTYPE AS [Affidavit Type], REQUESTEDSTATUS AS [Requested Status], LOCATIONCODE AS [Location Code], CNT AS [Count], TOLLCNT AS [Toll Count], TOLLAMOUNT AS [Toll Amount], INVOICECNT AS [Invoice Count], INVOICEAMT AS [Invoice Amount] FROM PBI.DISPUTES_SUMMARY_V2 WHERE REQUESTEDSTATUS = 'DISPUTEACCEPTED' ORDER BY AFFIDAVITCREATEDDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.86 sec</td>
+      <td>0.59 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>List all high-value disputes along with their affidavit details and requested statuses.</td>
+      <td>SELECT \n    AFFIDAVITCREATEDDATE AS [Affidavit Created Date],\n    AFFIDAVITTYPE AS [Affidavit Type],\n    REQUESTEDSTATUS AS [Requested Status],\n    LOCATIONCODE AS [Location Code],\n    CNT AS [Count],\n    TOLLCNT AS [Toll Count],\n    TOLLAMOUNT AS [Toll Amount],\n    INVOICECNT AS [Invoice Count],\n    INVOICEAMT AS [Invoice Amount]\nFROM \n    PBI.DISPUTES_SUMMARY_V2\nWHERE \n    TOLLAMOUNT > 1000 OR INVOICEAMT > 1000\nORDER BY \n    TOLLAMOUNT DESC, INVOICEAMT DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.16 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>Show all completed transactions for the last fiscal year.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date], PAIDCOUNT AS [Paid Count] FROM REPORTS.PAIDTRANSACTION_DETAILS WHERE TRIPSTATUSDATE >= DATEFROMPARTS(YEAR(GETDATE()) - 1, 4, 1) AND TRIPSTATUSDATE < DATEFROMPARTS(YEAR(GETDATE()), 4, 1) ORDER BY [Facility Code] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>17.75 sec</td>
+      <td>11.71 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>Retrieve all notices that were created but not yet sent.</td>
+      <td>SELECT \n    REQUESTEDDATE AS [Requested Date], \n    TEMPLATENAME AS [Template Name], \n    NOTICECNT AS [Notice Count], \n    INVOICEDUE AS [Invoice Due], \n    INVOICETOLLDUE AS [Invoice Toll Due], \n    ILTOLLDUE AS [IL Toll Due], \n    ILTOLLCNT AS [IL Toll Count]\nFROM \n    PBI.NOTICE_SUMMARY\nWHERE \n    CREATEDDATE IS NOT NULL AND UPDATEDDATE IS NULL ORDER BY [Requested Date]</td>
+      <td>Low</td>
+      <td>6.97 sec</td>
+      <td>0.84 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>Find all license plates received in the last week.</td>
+      <td>SELECT FILERECEVIEDDATE AS [File Received Date], NOOFPLATES AS [Number of Plates], NOOFTXNS AS [Number of Transactions], ACCOUNTTYPE AS [Account Type], FACILITYCODE AS [Facility Code] FROM PBI.LICENSEPLATES_SUMMURY WHERE FILERECEVIEDDATE >= DATEADD(day, -7, GETDATE()) ORDER BY [File Received Date]</td>
+      <td>Low</td>
+      <td>7.12 sec</td>
+      <td>0.82 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>Show all transactions that have been marked as uncollectible.</td>
+      <td>SELECT RMA AS [RMA], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Transaction Uncollectable], TRNTYPE AS [Transaction Type] FROM REPORTS.UNCOLLECTABLETXN_DETAILS ORDER BY [RMA] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.02 sec</td>
+      <td>3.19 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>Show uncollectible transactions from the last 6 months</td>
+      <td>SELECT RMA AS [RMA], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FILE_RECEIVED_DATE AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Transaction Uncollectable], TRNTYPE AS [Transaction Type]\nFROM REPORTS.UNCOLLECTABLETXN_DETAILS\nWHERE FILE_RECEIVED_DATE >= DATEADD(month, -6, GETDATE())\nORDER BY FILE_RECEIVED_DATE ASC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.76 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>Show uncollectible transactions from the last 6 months with toll amount > 5000</td>
+      <td>SELECT RMA, FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FILE_RECEIVED_DATE AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Uncollectible Transactions], TRNTYPE AS [Transaction Type], TOLLAMOUNT AS [Toll Amount] \nFROM REPORTS.UNCOLLECTABLETXN_DETAILS_AMT \nWHERE FILE_RECEIVED_DATE >= DATEADD(month, -6, GETDATE()) \nAND TOLLAMOUNT > 5000 \nORDER BY FILE_RECEIVED_DATE</td>
+      <td>Low</td>
+      <td>6.98 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>Show uncollectible transactions from the last 6 months with transaction type wrong plate</td>
+      <td>SELECT RMA AS [Record Management Account], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FILE_RECEIVED_DATE AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Uncollectable Transactions], TRNTYPE AS [Transaction Type] FROM REPORTS.UNCOLLECTABLETXN_DETAILS WHERE TRNTYPE = 'WRONGPLATE' AND FILE_RECEIVED_DATE >= DATEADD(month, -6, GETDATE()) ORDER BY FILE_RECEIVED_DATE ASC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.20 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>Find all payments where the mode of payment was changed after processing.</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], PMTMODE AS [Payment Mode], ACCOUNTSTATUS AS [Account Status], ACCOUNTTYPES AS [Account Types], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments] FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS IN ('Queued', 'Failed', 'InComplete') AND PMTMODE IS NOT NULL ORDER BY [Payment Date] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.20 sec</td>
+      <td>3.26 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>Show all transactions where the trust status date falls within the last 15 days and has a valid payment status.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FILE_RECEIVED_DATE AS [File Received Date], TRIPSTATUSDATE AS [Trip Status Date], PAIDCOUNT AS [Number of Transactions Paid], YYYYMMDD AS [Transaction Date] FROM REPORTS.PAIDTRANSACTION_DETAILS WHERE TRIPSTATUSDATE >= DATEADD(DAY, -15, GETDATE()) ORDER BY [Facility Code]</td>
+      <td>Low</td>
+      <td>8.93 sec</td>
+      <td>0.83 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>Find all notices where the invoice due amount is greater than $1000.</td>
+      <td>SELECT REQUESTEDDATE AS [Requested Date], TEMPLATENAME AS [Template Name], NOTICECNT AS [Notice Count], INVOICEDUE AS [Invoice Due], INVOICETOLLDUE AS [Invoice Toll Due], ILTOLLDUE AS [IL Toll Due], ILTOLLCNT AS [IL Toll Count] FROM PBI.NOTICE_SUMMARY WHERE INVOICEDUE > 1000 ORDER BY REQUESTEDDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.81 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td>List all transactions from the last 6 months where the paid amount is greater than the charged amount.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date], PAIDCOUNT AS [Number of Transactions Paid], TOLLAMOUNT AS [Total Toll Amount] FROM REPORTS.PAIDTRANSACTION_DETAILS_AMT WHERE FILE_RECEIVED_DATE >= DATEADD(MONTH, -6, GETDATE()) AND TOLLAMOUNT > PAIDCOUNT ORDER BY [Facility Code] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>11.79 sec</td>
+      <td>5.64 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>Show the total count of invoices grouped by location.</td>
+      <td>SELECT LOCATIONID AS [Location ID],  SUM(TOTALCNT) AS [Total Invoice Count] FROM REPORTS.LIQUIDATIONDATABYINVDATE GROUP BY LOCATIONID ORDER BY LOCATIONID</td>
+      <td>Low</td>
+      <td>6.56 sec</td>
+      <td>0.85 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td>Retrieve the number of disputed transactions per agency.</td>
+      <td>SELECT LOCATIONCODE AS [Facility Code], COUNT(SNO) AS [Number of Disputed Transactions] FROM PBI.DISPUTES_SUMMARY_V2 GROUP BY LOCATIONCODE ORDER BY LOCATIONCODE</td>
+      <td>Low</td>
+      <td>6.34 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>Get a report of paid and uncollectible transactions per plaza ID for the last 12 months, including amounts above $100.</td>
+      <td>no query generated</td>
+      <td>N/A</td>
+      <td>2.08 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>I can help you find and view information, but I’m not able to change or delete anything. Please let me know what you’d like to see.</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td>Retrieve the last 5 transactions recorded in the system.</td>
+      <td>SELECT LOADEDTXNDTLID AS [Transaction ID], RMA AS [RMA], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_BILLED AS [Transaction Billed] FROM REPORTS.LOADEDTRANSACTION_DETAILS ORDER BY LOADEDTXNDTLID DESC FETCH NEXT 5 ROWS ONLY;</td>
+      <td>Low</td>
+      <td>10.13 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>SQL Execution Error: [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid usage of the option NEXT in the FETCH statement. (153) (SQLExecDirectW); [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid usage of the option NEXT in the FETCH statement. (153)</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td>Retrieve all invoices that are overdue by more than 60 days.</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Received Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE TRIPSTATUSDATE < DATEADD(day, -60, GETDATE()) ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>12.99 sec</td>
+      <td>6.11 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td>Retrieve all customer complaints made last week.</td>
+      <td>no query generated</td>
+      <td>N/A</td>
+      <td>3.96 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>I can help you find and view information, but I’m not able to change or delete anything. Please let me know what you’d like to see.</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td>Show all transactions where the toll charge was incorrect.</td>
+      <td>SELECT AFFIDAVITCREATEDDATE AS [Affidavit Created Date], AFFIDAVITTYPE AS [Affidavit Type], REQUESTEDSTATUS AS [Requested Status], LOCATIONCODE AS [Location Code], TOLLCNT AS [Toll Count], TOLLAMOUNT AS [Toll Amount], INVOICECNT AS [Invoice Count], INVOICEAMT AS [Invoice Amount] FROM PBI.DISPUTES_SUMMARY_V2 WHERE AFFIDAVITTYPE = 'INCORRECT PLATE' ORDER BY AFFIDAVITCREATEDDATE</td>
+      <td>Low</td>
+      <td>6.48 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>Find the total revenue generated per month in the last 6 months.</td>
+      <td>SELECT CONVERT(varchar, FILE_RECEIVED_DATE, 101) AS [File Received Date], SUM(TOLLAMOUNT) AS [Total Revenue] FROM REPORTS.LOADEDTRANSACTION_DETAILS_AMT WHERE FILE_RECEIVED_DATE > DATEADD(month, -6, GETDATE()) GROUP BY CONVERT(varchar, FILE_RECEIVED_DATE, 101) ORDER BY CONVERT(varchar, FILE_RECEIVED_DATE, 101)</td>
+      <td>Low</td>
+      <td>7.77 sec</td>
+      <td>0.72 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td>Find the total number of disputes for a specific location NE49.</td>
+      <td>SELECT LOCATIONCODE AS [Location Code], COUNT(*) AS [Total Number of Disputes] FROM PBI.DISPUTES_SUMMARY_V2 WHERE LOCATIONCODE = 'NE49' GROUP BY LOCATIONCODE ORDER BY LOCATIONCODE</td>
+      <td>Low</td>
+      <td>6.88 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td>Get a report of paid and uncollectible transactions per plaza ID, including amounts.</td>
+      <td>no query generated</td>
+      <td>N/A</td>
+      <td>1.98 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>I can help you find and view information, but I’m not able to change or delete anything. Please let me know what you’d like to see.</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td>List all invoices due this month.</td>
+      <td>SELECT InvoiceMonthYear AS [Invoice Month Year], FILERECEIVEDATE AS [File Receive Date], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], FORMAT(TRIPSTATUSDATE, 'MM/dd/yyyy') AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE InvMonthNumber = MONTH(GETDATE()) ORDER BY [Invoice Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>12.09 sec</td>
+      <td>5.13 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td>Show high-value payments recorded this year.</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], STAGEDESC AS [Stage Description], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments], NOOFACTS AS [Number of Actions] FROM PBI.HVPAYMENTSREPORT WHERE YEAR(PAYMENTDATE) = YEAR(GETDATE()) ORDER BY [Payment Date] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.63 sec</td>
+      <td>0.93 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td>Get the details of the latest transaction recorded per facility.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], \nFORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_BILLED AS [Transaction Billed], \nFORMAT(YYYYMMDD, 'MM/dd/yyyy') AS [Date]\nFROM REPORTS.LOADEDTRANSACTION_DETAILS\nWHERE FILE_RECEIVED_DATE = (SELECT MAX(FILE_RECEIVED_DATE) FROM REPORTS.LOADEDTRANSACTION_DETAILS t2 WHERE t2.FACILITYCODE = REPORTS.LOADEDTRANSACTION_DETAILS.FACILITYCODE)\nORDER BY FILE_RECEIVED_DATE DESC</td>
+      <td>Low</td>
+      <td>6.98 sec</td>
+      <td>0.72 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td>Show the number of invoices issued per month in the last year.</td>
+      <td>SELECT InvoiceMonthYear AS [Invoice Month Year], COUNT(*) AS [Number of Invoices] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE YEAR(FILERECEIVEDATE) = YEAR(GETDATE()) - 1 GROUP BY InvoiceMonthYear ORDER BY InvoiceMonthYear</td>
+      <td>Low</td>
+      <td>8.74 sec</td>
+      <td>1.01 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td>Show liquidation data from the last 3 to 6 months.</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Receive Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE TRIPSTATUSDATE BETWEEN DATEADD(MONTH, -6, GETDATE()) AND DATEADD(MONTH, -3, GETDATE()) ORDER BY TRIPSTATUSDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>9.35 sec</td>
+      <td>1.82 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td>Get a count of all notices issued per location in the last month.</td>
+      <td>SELECT TEMPLATENAME AS [Template Name], SUM(NOTICECNT) AS [Total Notices] \nFROM PBI.NOTICE_SUMMARY \nWHERE REQUESTEDDATE >= DATEADD(month, -1, GETDATE()) \nGROUP BY TEMPLATENAME \nORDER BY [Template Name]</td>
+      <td>Low</td>
+      <td>6.92 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td>Retrieve the total count of paid transactions and uncollected ones per lane ID, grouped by facility.</td>
+      <td>no query generated</td>
+      <td>N/A</td>
+      <td>2.01 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>I can help you find and view information, but I’m not able to change or delete anything. Please let me know what you’d like to see.</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td>Find the total number of completed transactions per agency in the last year where the paid amount exceeds $5000.</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], COUNT(*) AS [Total Transactions]\nFROM REPORTS.PAIDTRANSACTION_DETAILS_AMT\nWHERE FILE_RECEIVED_DATE >= DATEADD(year, -1, GETDATE())\nAND TOLLAMOUNT > 5000\nGROUP BY FACILITYCODE, PLAZACODE\nORDER BY FACILITYCODE, PLAZACODE</td>
+      <td>Low</td>
+      <td>8.03 sec</td>
+      <td>1.40 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td>List all payments that were partially processed.</td>
+      <td>SELECT PAYMENTDATE AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], PMTMODE AS [Payment Mode], ACCOUNTSTATUS AS [Account Status], ACCOUNTTYPES AS [Account Types], TXNAMOUNT AS [Transaction Amount], NOOFPMTS AS [Number of Payments] FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'InComplete' ORDER BY PAYMENTDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.12 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>62</td>
+      <td>Retrieve the total amount of invoices processed last quarter.</td>
+      <td>SELECT SUM(CHARGEDAMOUNT) AS [Total Charged Amount] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE InvoiceMonthYearToorder BETWEEN FORMAT(DATEADD(QUARTER, -1, GETDATE()), 'yyyyMM') AND FORMAT(GETDATE(), 'yyyyMM')</td>
+      <td>Low</td>
+      <td>6.64 sec</td>
+      <td>0.71 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>63</td>
+      <td>Retrieve all disputes along with their affidavit details</td>
+      <td>SELECT AFFIDAVITCREATEDDATE AS [Affidavit Created Date], AFFIDAVITTYPE AS [Affidavit Type], REQUESTEDSTATUS AS [Requested Status], LOCATIONCODE AS [Location Code], CNT AS [Count], TOLLCNT AS [Toll Count], TOLLAMOUNT AS [Toll Amount], INVOICECNT AS [Invoice Count], INVOICEAMT AS [Invoice Amount] FROM PBI.DISPUTES_SUMMARY_V2 ORDER BY AFFIDAVITCREATEDDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.26 sec</td>
+      <td>0.60 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>64</td>
+      <td>total amount on unpaid transactions</td>
+      <td>SELECT PLAZACODE AS [Plaza Code], FACILITYCODE AS [Facility Code], LANECODE AS [Lane Code], TRIPSTATUSDATE AS [Trip Status Date], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], SUM(TOLLAMOUNT) AS [Total Toll Amount] FROM REPORTS.PAIDTRANSACTION_DETAILS_AMT WHERE PAIDCOUNT = 0 GROUP BY PLAZACODE, FACILITYCODE, LANECODE, TRIPSTATUSDATE, FILE_RECEIVED_DATE ORDER BY TRIPSTATUSDATE, FILE_RECEIVED_DATE</td>
+      <td>Low</td>
+      <td>7.48 sec</td>
+      <td>1.16 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td>Show me how many toll-related letters were sent each day</td>
+      <td>SELECT Requesteddate AS [Request Date], TemplateName AS [Template Name], Cnt AS [Letter Count] FROM PBI.HVLETTER_SUMMARY WHERE TemplateName LIKE '%toll%' ORDER BY [Request Date]</td>
+      <td>Low</td>
+      <td>7.20 sec</td>
+      <td>0.83 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td>Give me a summary of all types of notices sent last month</td>
+      <td>SELECT TEMPLATENAME AS [Template Name], NOTICECNT AS [Notice Count], INVOICEDUE AS [Invoice Due Amount], INVOICETOLLDUE AS [Invoice Toll Due Amount], ILTOLLDUE AS [IL Toll Due Amount], ILTOLLCNT AS [IL Toll Count] FROM PBI.NOTICE_SUMMARY WHERE REQUESTEDDATE >= DATEADD(MONTH, -1, GETDATE()) AND REQUESTEDDATE < GETDATE() ORDER BY [Template Name]</td>
+      <td>Low</td>
+      <td>7.15 sec</td>
+      <td>0.82 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td>How many payment-related letters were issued in the last 7 days</td>
+      <td>SELECT COUNT(*) AS [Payment-Related Letters Count] FROM PBI.HVLETTER_SUMMARY WHERE TemplateName LIKE '%payment%' AND Requesteddate >= DATEADD(day, -7, GETDATE())</td>
+      <td>Low</td>
+      <td>5.97 sec</td>
+      <td>0.56 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td>Break down the notices sent by letter type</td>
+      <td>SELECT TEMPLATENAME AS [Template Name], NOTICECNT AS [Notice Count], INVOICEDUE AS [Invoice Due], INVOICETOLLDUE AS [Invoice Toll Due], ILTOLLDUE AS [IL Toll Due], ILTOLLCNT AS [IL Toll Count] FROM PBI.NOTICE_SUMMARY ORDER BY TEMPLATENAME OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.44 sec</td>
+      <td>0.55 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td>Show the most recent payment made, including date, type, status, and amount</td>
+      <td>SELECT FORMAT(PAYMENTDATE, 'MM/dd/yyyy') AS [Payment Date], PAYMENTTYPE AS [Payment Type], PAYMNETSTATUS AS [Payment Status], TXNAMOUNT AS [Transaction Amount] FROM PBI.PAYMENTSINFO ORDER BY PAYMENTDATE DESC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.24 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>70</td>
+      <td>Give me a summary of all payments grouped by payment mode and status</td>
+      <td>SELECT PMTMODE AS [Payment Mode], PAYMNETSTATUS AS [Payment Status], SUM(TXNAMOUNT) AS [Total Transaction Amount], COUNT(NOOFPMTS) AS [Number of Payments] FROM PBI.PAYMENTSINFO GROUP BY PMTMODE, PAYMNETSTATUS ORDER BY [Payment Mode], [Payment Status]</td>
+      <td>Low</td>
+      <td>6.75 sec</td>
+      <td>0.76 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td>Give me a summary of all payments grouped by payment mode and status with amount > 1000</td>
+      <td>SELECT PMTMODE AS [Payment Mode], PAYMNETSTATUS AS [Payment Status], COUNT(*) AS [Number of Payments], SUM(TXNAMOUNT) AS [Total Amount] FROM PBI.PAYMENTSINFO WHERE TXNAMOUNT > 1000 GROUP BY PMTMODE, PAYMNETSTATUS ORDER BY [Payment Mode], [Payment Status]</td>
+      <td>Low</td>
+      <td>6.78 sec</td>
+      <td>0.59 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>72</td>
+      <td>Give me a summary of all payments grouped by payment mode and status success with amount > 1000</td>
+      <td>None</td>
+      <td>N/A</td>
+      <td>4.04 sec</td>
+      <td>N/A</td>
+      <td>FAIL</td>
+      <td>Unknown</td>
+    </tr>
+    <tr>
+      <td>73</td>
+      <td>Give me a summary of all payments grouped by payment mode and status fail with amount > 1000</td>
+      <td>SELECT \n  PMTMODE AS [Payment Mode], \n  PAYMNETSTATUS AS [Payment Status], \n  SUM(TXNAMOUNT) AS [Total Transaction Amount], \n  COUNT(*) AS [Number of Payments] \nFROM PBI.PAYMENTSINFO \nWHERE PAYMNETSTATUS = 'Failed' AND TXNAMOUNT > 1000 \nGROUP BY PMTMODE, PAYMNETSTATUS \nORDER BY PMTMODE</td>
+      <td>Low</td>
+      <td>7.03 sec</td>
+      <td>0.60 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>74</td>
+      <td>Give me a summary of all payments grouped by payment mode cash and status fail with amount > 1000</td>
+      <td>SELECT PMTMODE AS [Payment Mode], PAYMNETSTATUS AS [Payment Status], SUM(TXNAMOUNT) AS [Total Amount], COUNT(*) AS [Number of Payments] \nFROM PBI.PAYMENTSINFO \nWHERE PMTMODE = 'Cash' \nAND PAYMNETSTATUS = 'Failed' \nAND TXNAMOUNT > 1000 \nGROUP BY PMTMODE, PAYMNETSTATUS</td>
+      <td>Low</td>
+      <td>7.74 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td>How many successful payments were made in the last month?</td>
+      <td>SELECT COUNT(*) AS [Number of Successful Payments] FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'Success' AND PAYMENTDATE >= DATEADD(month, -1, GETDATE()) AND PAYMENTDATE < GETDATE()</td>
+      <td>Low</td>
+      <td>6.13 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>76</td>
+      <td>How many successful payments were made in the last 6 months?</td>
+      <td>SELECT COUNT(*) AS [Total Successful Payments] FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'Success' AND PAYMENTDATE >= DATEADD(MONTH, -6, GETDATE())</td>
+      <td>Low</td>
+      <td>6.25 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>77</td>
+      <td>Give me a summary of all types of notices sent last month</td>
+      <td>SELECT TEMPLATENAME AS [Template Name], NOTICECNT AS [Notice Count], INVOICEDUE AS [Invoice Due Amount], INVOICETOLLDUE AS [Invoice Toll Due Amount], ILTOLLDUE AS [IL Toll Due Amount], ILTOLLCNT AS [IL Toll Count] FROM PBI.NOTICE_SUMMARY WHERE REQUESTEDDATE >= DATEADD(MONTH, -1, GETDATE()) AND REQUESTEDDATE < GETDATE() ORDER BY [Template Name]</td>
+      <td>N/A</td>
+      <td>4.51 sec</td>
+      <td>0.84 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>78</td>
+      <td>How many transactions are unpaid in total</td>
+      <td>SELECT COUNT(*) AS [Unpaid Transactions Count] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE PaidCount = 0</td>
+      <td>Low</td>
+      <td>6.21 sec</td>
+      <td>0.73 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>79</td>
+      <td>How many transactions are unpaid in total in the last 3 months</td>
+      <td>SELECT COUNT(*) AS [Unpaid Transactions] FROM REPORTS.PAIDTRANSACTION_DETAILS WHERE PAIDCOUNT = 0 AND TRIPSTATUSDATE >= DATEADD(MONTH, -3, GETDATE())</td>
+      <td>Low</td>
+      <td>6.66 sec</td>
+      <td>1.45 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td>what is the date of the oldest unpaid transaction</td>
+      <td>SELECT MIN(TRIPSTATUSDATE) AS [Oldest Unpaid Transaction Date]\nFROM REPORTS.LIQUIDATIONDATABYINVDATE\nWHERE PAIDAMT = 0</td>
+      <td>Low</td>
+      <td>6.37 sec</td>
+      <td>0.66 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>81</td>
+      <td>what is total amount for all unpaid transactions for the year 2018</td>
+      <td>SELECT SUM(TOLLAMOUNT) AS [Total Toll Amount] FROM REPORTS.UNCOLLECTABLETXN_DETAILS_AMT WHERE YEAR(FILE_RECEIVED_DATE) = 2018 AND TRNTYPE = 'REJECTED'</td>
+      <td>Low</td>
+      <td>6.27 sec</td>
+      <td>0.59 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>82</td>
+      <td>list all the unpaid transactions for the year 2018 with the account number</td>
+      <td>SELECT RMA AS [Account Number], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Number of Uncollectible Transactions], TRNTYPE AS [Transaction Type] FROM REPORTS.UNCOLLECTABLETXN_DETAILS WHERE YEAR(FILE_RECEIVED_DATE) = 2018 ORDER BY [Account Number] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>8.16 sec</td>
+      <td>2.02 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>83</td>
+      <td>can you provide the account details for the accounts 9000000374 and 9000000375</td>
+      <td>no query generated</td>
+      <td>N/A</td>
+      <td>2.10 sec</td>
+      <td>0.00 seconds</td>
+      <td>FAIL</td>
+      <td>I can help you find and view information, but I’m not able to change or delete anything. Please let me know what you’d like to see.</td>
+    </tr>
+    <tr>
+      <td>84</td>
+      <td>list all the unpaid transactions for the year 2018</td>
+      <td>SELECT RMA AS [RMA], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FILE_RECEIVED_DATE AS [File Received Date], TRIPSTATUSDATE AS [Trip Status Date], PAIDCOUNT AS [Paid Count], YYYYMMDD AS [Date] FROM REPORTS.PAIDTRANSACTION_DETAILS WHERE PAIDCOUNT = 0 AND YEAR(YYYYMMDD) = 2018 ORDER BY YYYYMMDD</td>
+      <td>Low</td>
+      <td>7.18 sec</td>
+      <td>1.31 seconds</td>
+      <td>PASS</td>
+      <td>No records found</td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td>list all the unpaid transactions for the year 2019</td>
+      <td>SELECT FileMonthYear AS [File Month Year], FILERECEIVEDATE AS [File Receive Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], JOBRUNDATE AS [Job Run Date], TRIPSTATUSDATE AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE YEAR(FILERECEIVEDATE) = 2019 AND PaidCount = 0 ORDER BY FILERECEIVEDATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.82 sec</td>
+      <td>0.79 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>86</td>
+      <td>list all the unpaid transactions for the year 2019 with transaction type rejected</td>
+      <td>SELECT FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Number of Uncollectable Transactions], TRNTYPE AS [Transaction Type], TOLLAMOUNT AS [Total Toll Amount] FROM REPORTS.UNCOLLECTABLETXN_DETAILS_AMT WHERE YEAR(FILE_RECEIVED_DATE) = 2019 AND TRNTYPE = 'REJECTED' ORDER BY FILE_RECEIVED_DATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.95 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>87</td>
+      <td>list all the unpaid transactions for the year 2019  with transaction type WRONGPLATE</td>
+      <td>SELECT FILE_RECEIVED_DATE AS [File Received Date], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], TRANSACTION_UNCOLLECTABLE AS [Uncollectible Transactions], TRNTYPE AS [Transaction Type] FROM REPORTS.UNCOLLECTABLETXN_DETAILS WHERE YEAR(FILE_RECEIVED_DATE) = 2019 AND TRNTYPE = 'WRONGPLATE' ORDER BY FILE_RECEIVED_DATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.74 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>88</td>
+      <td>list all the unpaid transactions for the year 2019  with transaction type HOTLISTPLATE</td>
+      <td>SELECT\n    FACILITYCODE AS [Facility Code],\n    PLAZACODE AS [Plaza Code],\n    LANECODE AS [Lane Code],\n    FILE_RECEIVED_DATE AS [File Received Date],\n    FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [Formatted File Received Date],\n    TRANSACTION_UNCOLLECTABLE AS [Transaction Uncollectable],\n    TRNTYPE AS [Transaction Type]\nFROM\n    REPORTS.UNCOLLECTABLETXN_DETAILS\nWHERE\n    YEAR(FILE_RECEIVED_DATE) = 2019\n    AND TRNTYPE = 'HOTLISTPLATE'\nORDER BY\n    FILE_RECEIVED_DATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.69 sec</td>
+      <td>0.60 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>89</td>
+      <td>list all the unpaid transactions for the year 2019  with transaction type DMVINVALIDDATA</td>
+      <td>SELECT RMA AS [RMA], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Number of Uncollectible Transactions], TOLLAMOUNT AS [Total Toll Amount] FROM REPORTS.UNCOLLECTABLETXN_DETAILS_AMT WHERE TRNTYPE = 'DMVINVALIDDATA' AND YEAR(FILE_RECEIVED_DATE) = 2019 ORDER BY FILE_RECEIVED_DATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>7.25 sec</td>
+      <td>0.58 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td>list all the unpaid transactions for the year 2019  with transaction type DMVRESERVE</td>
+      <td>SELECT RMA AS [Receipt Number], FACILITYCODE AS [Facility Code], PLAZACODE AS [Plaza Code], LANECODE AS [Lane Code], FORMAT(FILE_RECEIVED_DATE, 'MM/dd/yyyy') AS [File Received Date], TRANSACTION_UNCOLLECTABLE AS [Uncollectable Transactions], TRNTYPE AS [Transaction Type] FROM REPORTS.UNCOLLECTABLETXN_DETAILS WHERE YEAR(FILE_RECEIVED_DATE) = 2019 AND TRNTYPE = 'DMVRESERVE' ORDER BY FILE_RECEIVED_DATE OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>6.84 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>91</td>
+      <td>How many successful payments were made in the last 11 months?</td>
+      <td>SELECT COUNT(*) AS [Total Successful Payments] FROM PBI.PAYMENTSINFO WHERE PAYMNETSTATUS = 'Success' AND PAYMENTDATE >= DATEADD(MONTH, -11, GETDATE())</td>
+      <td>Low</td>
+      <td>6.10 sec</td>
+      <td>0.57 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>92</td>
+      <td>transactions with invoice amount > $1000 between agency id 9000000374 to 9000000375</td>
+      <td>SELECT FileMonthYear AS [File Month Year], CONVERT(varchar, FILERECEIVEDATE, 101) AS [File Receive Date], InvoiceMonthYear AS [Invoice Month Year], InvoiceMonthYearToorder AS [Invoice Month Year To Order], MonthNumber AS [Month Number], InvMonthNumber AS [Invoice Month Number], CITATIONSTAGE AS [Citation Stage], AGENCYID AS [Agency ID], LOCATIONID AS [Location ID], ENTRYPLAZAID AS [Entry Plaza ID], ENTRYLANEID AS [Entry Lane ID], PaidCount AS [Paid Count], PAIDAMT AS [Paid Amount], CHARGEDAMOUNT AS [Charged Amount], TOTALCNT AS [Total Count], CONVERT(varchar, JOBRUNDATE, 101) AS [Job Run Date], CONVERT(varchar, TRIPSTATUSDATE, 101) AS [Trip Status Date] FROM REPORTS.LIQUIDATIONDATABYINVDATE WHERE CHARGEDAMOUNT > 1000 AND AGENCYID BETWEEN 9000000374 AND 9000000375 ORDER BY [File Month Year] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY</td>
+      <td>Low</td>
+      <td>13.17 sec</td>
+      <td>4.91 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+    <tr>
+      <td>93</td>
+      <td>Show breakdown of toll amounts collected per month</td>
+      <td>SELECT FORMAT(FILE_RECEIVED_DATE, 'MM/yyyy') AS [Month and Year], SUM(TOLLAMOUNT) AS [Total Toll Amount] FROM REPORTS.PAIDTRANSACTION_DETAILS_AMT GROUP BY FORMAT(FILE_RECEIVED_DATE, 'MM/yyyy') ORDER BY FORMAT(FILE_RECEIVED_DATE, 'MM/yyyy')</td>
+      <td>Low</td>
+      <td>122.60 sec</td>
+      <td>115.70 seconds</td>
+      <td>PASS</td>
+      <td>Records found</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx1 = document.getElementById("testResultsChart").getContext("2d");
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ["Passed", "Failed"],
+                    datasets: [{
+                        data: [81, 12],  
+                        backgroundColor: ["#28a745", "#dc3545"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            var ctx2 = document.getElementById("complexityChart").getContext("2d");
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ["Low", "Medium", "High", "Very High"],
+                    datasets: [{
+                        label: "Complexity Distribution",
+                        data: [84, 0, 0, 0],
+                        backgroundColor: ["#17a2b8", "#ffc107", "#fd7e14", "#dc3545"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

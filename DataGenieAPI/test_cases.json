@@ -1,0 +1,12 @@
+{
+    "test_cases": [
+        "Generate a report on the number of male and female patients in the last month",
+        "Generate a report on patient satisfaction for the last month",
+        "Generate a report on the revenue from patient visits last quarter",
+        "Generate a report on the number of outpatient visits in the last week",
+        "Generate a report on the number of shipments processed in the last week",
+        "Generate a report on the most efficient routes used for shipments in the last quarter",
+        "Generate a report on the current interest rates for savings and checking accounts",
+        "List of new customers acquired by each branch in the last quarter"
+    ]
+}

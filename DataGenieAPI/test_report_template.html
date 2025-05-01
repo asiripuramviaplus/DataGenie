@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Genie - AI-Powered Natural Language to SQL Translation & Test Execution Summary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        h2 {
+            font-weight: bold;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .charts-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 50px; /* Increase spacing after charts */
+        }
+        .chart-container {
+            width: 45%;
+            height: 300px;
+        }
+        table-container {
+            margin-top: 30px;
+            background: white;
+            border-radius: 12px;
+            padding: 40px; /* Increased padding for larger table */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px; /* Extra margin for better spacing */
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;  /* Increased font size for readability */
+        }
+
+        .table thead th {
+            background-color: #6c8ebf;
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;  /* Increased padding for larger table header */
+            font-size: 20px;  /* Increased font size for table header */
+        }
+
+        .table tbody td {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 20px;  /* Increased padding for table cells */
+            font-size: 18px;  /* Increased font size for table content */
+            color: #333;
+        }
+
+        .table tbody tr:hover {
+            background-color: #eaf0f6;
+            transition: all 0.3s ease-in-out;
+        }
+        .text-success { 
+            color: green; 
+            font-weight: bold;
+        }
+
+        .text-danger { 
+            color: red; 
+            font-weight: bold;
+        }
+
+        .summary {
+            background-color: #eaf0f6;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary h4 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .summary p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Data Genie - AI-Powered Natural Language to SQL Translation & Test Execution Summary</h2>
+        <p class="text-center large-text">Data Genie is an intelligent AI-powered tool that translates natural language queries into optimized SQL statements and executes them on a database. It utilizes Azure AI models to generate SQL queries based on schema metadata, ensuring accurate table and column mappings. The tool also validates, corrects, and optimizes queries, analyzing complexity before execution. With built-in query execution tracking, structured logging, and automated reporting.</p>
+        <p class="text-center large-text">The following test cases are categorized into the domains of Mobility (95), Healthcare(4), Transportation Management System (TMS)(2), and Banking(2)</p>
+        <!-- Summary Panel -->
+        <div class="panel">
+            <div class="summary text-center">
+                <h4>Overall Test Case Summary - CTRMA BI Reports Database</h4>
+                <p>
+                    <b>Total Test Cases:</b> {total_cases} | 
+                    <b>Passed:</b> <span class="text-success">{pass_count}</span> | 
+                    <b>Failed:</b> <span class="text-danger">{fail_count}</span>
+                </p>
+            </div>
+        </div>
+        <!-- Add extra space before the table -->
+        <div style="height: 50px;"></div>
+
+        <div class="panel table-container">
+            {html_output}
+        </div>
+        <!-- Regards Section -->
+        <div class="regards">
+            <p><b>Regards,<br>Data Genie Monitoring Tool</b></p>
+        </div>
+    </div>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            var ctx1 = document.getElementById("testResultsChart").getContext("2d");
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ["Passed", "Failed"],
+                    datasets: [{
+                        data: [{pass_count}, {fail_count}],  
+                        backgroundColor: ["#28a745", "#dc3545"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            var ctx2 = document.getElementById("complexityChart").getContext("2d");
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ["Low", "Medium", "High", "Very High"],
+                    datasets: [{
+                        label: "Complexity Distribution",
+                        data: [{low_count}, {medium_count}, {high_count}, {very_high_count}],
+                        backgroundColor: ["#17a2b8", "#ffc107", "#fd7e14", "#dc3545"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- <p>App is loading...</p> -->
+<!-- <div class="header">
+    <div class="header-left">
+      <div class="logo">
+        <img src="../../../assets/logo.svg" alt="Logo" (click)="navigateToSearchBox()"/>
+      </div>
+      <div class="dashboard">
+        <button [routerLink]="'/dashboard'">Dashboard</button>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="login">Login</div>
+      <div class="create-account">Create Account</div>
+    </div>
+</div> -->
+
+<div class="header-container">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">
+        <button class="logo-button" (click)="navigateToSearchBox()">
+          <img src="../../../assets/logo1.svg" alt="Logo" />
+        </button>
+      </div>
+      
+    </div>
+    <div class="header-right">
+      <div class="ticket-resolver-tab" [routerLink]="'/ticket-resolver'" title="Ticket Resolver">
+        <!-- 🎟️ -->
+        <i class="bi bi-ticket"></i>
+      </div>
+      <div class="toggle-container">
+        <span class="toggle-text">Dashboard Mode</span>
+        <label class="switch">
+          <input id="dashboardToggle" type="checkbox" (change)="toggleDashboard($event)" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

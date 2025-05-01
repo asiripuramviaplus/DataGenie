@@ -1,0 +1,93 @@
+<div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
+<div class="container-fluid dashboard-container">
+  <div class="row">
+    <div class="col-12">
+      <mat-card class="dashboard-card">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-3 mb-3">
+            <mat-card class="stat-card purple">
+              <div class="stat-value">{{ totalPrompts }}</div>
+              <div class="stat-label">Total Prompts</div>
+            </mat-card>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3">
+            <mat-card class="stat-card" [ngStyle]="{ 'background-color': successRateColor }">
+              <div class="stat-value">{{ successRate }}</div>
+              <div class="stat-label">Success Rate</div>
+            </mat-card>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3">
+            <mat-card class="stat-card" [ngStyle]="{ 'background-color': intentSuccessRateColor }">
+              <div class="stat-value">{{ intentSuccessRate }}</div>
+              <div class="stat-label">Intent Generation Success Rate</div>
+            </mat-card>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3">
+            <mat-card class="stat-card blue">
+              <div class="stat-value">{{ turnaroundTime }}</div>
+              <div class="stat-label">Average Turnaround Time</div>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="line-chart-container" style="width: 100%; height: 100%;">
+        <ngx-charts-line-chart [view]="view" [scheme]="linecolorScheme"
+          [results]="promptExecutionData" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="line_showlegend"
+          [legendPosition]="legendPosition" [showXAxisLabel]="showLabels" [showYAxisLabel]="showLabels"
+          [xAxisLabel]="'Prompt'" [yAxisLabel]="'Time (seconds)'" [autoScale]="autoScale" [timeline]="timeline"
+          [animations]="animations" [gradient]="true">
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="pie-chart-container" style="width: 100%; height: 100%;">
+        <ngx-charts-pie-chart [results]="executionStats" [scheme]="piecolorScheme" [legend]="true"
+          [legendPosition]="legendPosition1" [labels]="true" [doughnut]="false" [gradient]="false">
+        </ngx-charts-pie-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticket-table-container">
+    <div class="col-12">
+      <p class="table-title">Ticket Data</p>
+      <div class="search-box"> 
+        <span class="search-icon">
+          <img src="../../../assets/search-icon.svg" alt="Search"/>
+        </span>
+        <input type="text" placeholder="Search..." class="search-input" [(ngModel)]="searchTerm" (ngModelChange)="filterRows()" />
+      </div>  
+      <div class="table-container">
+        <table [class.disabled]="isLoading">
+          <thead>
+            <tr>
+              <th>
+                <div class="table-header-cell">
+                  <span>Ticket Number</span>
+                  <div class="sort-icons">
+                    <span class="bi bi-caret-up-fill" (click)="sortTicketData('TicketNumber', 'asc')"></span>
+                    <span class="bi bi-caret-down-fill" (click)="sortTicketData('TicketNumber', 'desc')"></span>
+                  </div>
+                </div>
+              </th>
+              <th>Error Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of filteredRows">
+              <td>{{ ticket.TicketNumber }}</td>
+              <td>{{ ticket.ErrorMessage }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

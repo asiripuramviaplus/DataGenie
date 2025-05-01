@@ -1,0 +1,924 @@
+{
+    
+    "Table: HV.HVSTAGES": {
+    "Description": "This table defines the different stages within the Habitual Violator (HV) process, including stages like PreDetermination, HV Active, Admin Hearing, Determination, and County Appeal. Each stage is associated with a unique code and description. The table also captures activity flags and audit fields for creation and update tracking. This structured staging information supports workflow management and stage-wise tracking of HV cases.",
+    "Columns": [
+        {
+            "Column": "HVSTAGEID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "STAGECODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "STAGEDESC",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "ISACTIVE",
+            "DataType": "bit"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        }
+    ],
+    "RowCount": "5",
+    "MasterDataValues": {
+    "STAGECODE": [ "APPEAL", "DET", "HEARING", "HV", "PDET" ],
+    "STAGEDESC": [ "Admin Hearing", "County Appeal", "Determination", "HV Active", "PreDetermination" ],
+    "ISACTIVE": [ "1", "0" ]
+}
+
+},
+
+"Table: HV.HVSTATUSES": {
+    "Description": "This table maintains the list of possible statuses in the Habitual Violator (HV) process. It includes status codes and their corresponding descriptions, such as “Liable,” “NonLiable,” “Paid,” or “Terminate.” It tracks whether each status is active, and logs metadata including creation and update timestamps, along with the associated users. This data helps monitor and manage the lifecycle of HV-related cases based on status progression.",
+    "Columns": [
+        {
+            "Column": "HVSTATUSID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "STATUSCODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "STATUSESC",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "ISACTIVE",
+            "DataType": "bit"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        }
+    ],
+    "RowCount": "9",
+    "MasterDataValues": {
+    "STATUSCODE": ["Init", "Judged", "Liable", "NonLiable", "Paid", "Removed", "Requested", "Scheduled", "TERMINATE" ],
+    "STATUSESC": [ "Hearing/Appeal Judgement completed", "Hearing/Appeal Requested", "Hearing/Appeal Scheduled", "HV Terminate", "Initiated", "Liable", "Non Liable", "Paid", "Removed" ],
+    "ISACTIVE": [ "1", "0" ]
+}
+
+},
+
+"Table: TOLLPLUS.LOCATIONS": {
+    "Description": "This table maintains information about toll locations, including metadata such as county, ownership status, court jurisdiction, and hierarchy of toll routes.",
+    "Columns": [
+        {
+            "Column": "LOCATIONID",
+            "DataType": "int"
+        },
+        {
+            "Column": "LOCATIONCODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "LOCATIONNAME",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "DESCRIPTION",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "ISOWNED",
+            "DataType": "bit"
+        },
+        {
+            "Column": "ISNONREVENUE",
+            "DataType": "bit"
+        },
+        {
+            "Column": "COUNTYNAME",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "COURTNAME",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "PARENTLOCATIONID",
+            "DataType": "int"
+        }
+    ],
+    "RowCount": "10",
+    "MasterDataValues": {
+    "LOCATIONCODE": [ "183A", "183S", "290", "290E", "45SW", "71", "MOPAC", "MOPACN", "NE49", "SH71" ],
+    "LOCATIONNAME": [ "183A Toll", "183S Toll", "290 Toll", "290E Toll", "45 SW Toll", "71 Toll", "Mopac Express", "NETRMA", "SH 71 Toll" ]
+}
+
+},
+
+"Table: TOLLPLUS.PLANS": {
+    "Description": "This table stores toll service billing plans, each identified by a PLANID. It includes details like PLANNAME, PLANCODE, and PLANDESCRIPTION, along with hierarchy through PARENTID. Flags like ISFEEREQUIRED and ISTAGREQUIRED indicate plan requirements. Effective dates manage plan validity, while audit fields (CREATEDDATE, UPDATEDDATE, etc.) support change tracking. The design allows flexible, hierarchical, and time-bound toll plan configurations.",
+    "Columns": [
+        {
+            "Column": "PLANID",
+            "DataType": "int"
+        },
+        {
+            "Column": "PLANNAME",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "PLANCODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "PLANDESCRIPTION",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "PARENTID",
+            "DataType": "int"
+        },
+        {
+            "Column": "ISFEEREQUIRED",
+            "DataType": "bit"
+        },
+        {
+            "Column": "ISTAGREQUIRED",
+            "DataType": "bit"
+        },
+        {
+            "Column": "STATEMENTCYCLEID",
+            "DataType": "int"
+        },
+        {
+            "Column": "STARTEFFECTIVEDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "ENDEFFECTIVEDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        }
+    ],
+    "RowCount": "4",
+    "MasterDataValues": { "PLANID": [4, 3, 2, 1], "PLANNAME": ["Post Paid", "Postpaid Video Tolls", "Pre Paid", "Prepaid Video Tolls"], "PLANCODE": ["POSTPAIDVIDEOTOLLS", "PREPAIDVIDEOTOLLS"], "PLANDESCRIPTION": ["Post-Pay Tolls by Vehicle and Invoice by anniversary date with ability to change", "Tolls by Vehicle and Pre-pay your toll charges before you drive", "Post Paid", "Pre Paid", "POSTPAID", "PREPAID"], "PARENTID": [2, 1, 0], "ISFEEREQUIRED": [0, 1], "ISTAGREQUIRED": [0, 1], "STATEMENTCYCLEID": [null], "INVOICEINTERVALID": [null] }
+
+},
+
+"Table: TOLLPLUS.REF_LOOKUPTYPECODES_HIERARCHY": {
+    "Description": "This table defines various lookup categories used throughout the system. Each entry includes a unique identifier, a code, a description, and an optional parent reference to support hierarchical groupings. Metadata such as creation and update timestamps, as well as active usage flags, are also maintained. This table enables dynamic reference data management across modules by centralizing reusable value sets.",
+    "Columns": [
+        {
+            "Column": "LOOKUPTYPECODEID",
+            "DataType": "int"
+        },
+        {
+            "Column": "LOOKUPTYPECODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "LOOKUPTYPECODEDESC",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "PARENT_LOOKUPTYPECODEID",
+            "DataType": "int"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "IS_AVAILABLE_FORUSE",
+            "DataType": "bit"
+        }
+    ],
+    "RowCount": "1007",
+    "MasterDataValues": {
+        "IS_AVAILABLE_FORUSE": [0, 1]
+        }
+},
+
+"Table: TOLLPLUS.TP_CUSTOMER_PLANS": {
+    "Description": "This table maps customers to their respective plans, capturing when the plan becomes effective and when it expires. Each record includes a unique plan mapping ID, customer ID, and plan ID. It also tracks timestamps for plan activation and expiration (STARTEFFECTIVEDATE, ENDEFFECTIVEDATE), along with creation and update metadata. This setup enables historical tracking and management of customer subscriptions or entitlements within the system.",
+    "Columns": [
+        {
+            "Column": "CUSTPLANID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "CUSTOMERID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "PLANID",
+            "DataType": "int"
+        },
+        {
+            "Column": "STARTEFFECTIVEDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "ENDEFFECTIVEDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        }
+    ],
+    "RowCount": "50622",
+    "MasterDataValues": {
+        "PLANID": [3, 4]
+        }
+},
+
+"Table: TOLLPLUS.TRIPSTAGES": {
+    "Description": "This table outlines the different stages a trip or transaction can progress through. Each stage is identified by a unique TRIPSTAGEID and described using a TRIPSTAGECODE and TRIPSTAGEDESCRIPTION. The PARENTSTAGEID field allows for hierarchical structuring of stages. Creation and update metadata help in auditing and change tracking. This design supports detailed workflow tracking and stage-based processing of trips within the system.",
+    "Columns": [
+        {
+            "Column": "TRIPSTAGEID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "TRIPSTAGECODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "TRIPSTAGEDESC",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "PARENTSTAGEID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        }
+    ],
+    "RowCount": "14",
+    "MasterDataValues": {
+        "PARENTSTAGEID": [0],
+        "TRIPSTAGECODE": ["CUSTOMER", "DISPUTES", "DMVPEND", "DMVRESPONSE", "DUPLICATE", "EXCEPTIONREVIEW", "HOTLISTPLATE", "QUALIFIEDVETERAN", "QUALIFY", "STOLEN", "UNIDENT", "UNQUALIFY", "VIOLATION", "WRONGPLATE"],
+        "TRIPSTAGEDESCRIPTION": ["DISPUTES", "DMVPEND", "DMVRESPONSE", "Plate is in HotList", "QUALIFIEDVETERAN", "Transaction Dismised Due To Duplicate", "Transaction Dismised Due To Stolen", "Transaction Dismised Due To Wrong Plate", "Transaction identified to Customer", "Transaction identified to Violation", "Transaction in qualified stage", "Transaction in unidentifed stage", "Transaction queued for review", "Transaction unqualified stage"]
+      }
+},
+
+"Table: TOLLPLUS.TRIPSTATUSES": {
+    "Description": "This table defines various statuses that a trip or transaction can hold within the system. Each status is uniquely identified by TRIPSTATUSID and represented by a status code (TRIPSTATUSCODE) and its corresponding description (TRIPSTATUSDESCRIPTION). Metadata fields track when the status was created or modified and by whom. This structure standardizes the interpretation of trip states and ensures consistent communication and reporting throughout the application.",
+    "Columns": [
+        {
+            "Column": "TRIPSTATUSID",
+            "DataType": "bigint"
+        },
+        {
+            "Column": "TRIPSTATUSCODE",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "TRIPSTATUSDESC",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "CREATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "CREATEDUSER",
+            "DataType": "varchar"
+        },
+        {
+            "Column": "UPDATEDDATE",
+            "DataType": "datetime"
+        },
+        {
+            "Column": "UPDATEDUSER",
+            "DataType": "varchar"
+        }
+    ],
+    "RowCount": "31",
+    "MasterDataValues": {
+    "PARENTSTAGEID": [0],
+    "TRIPSTATUSID": [
+        116, 115, 114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 90, 89, 88, 32, 28, 26, 25, 24, 23, 22, 5, 4, 3, 2, 1
+    ],
+    "TRIPSTATUSCODE": [
+        "ACCEPTED", "ADJUSTED", "DATAERROR", "DISPUTES", "DMVCANCEL", "DMVDATAINCORRECT", 
+        "DMVDATANOTFOUND", "DMVINVALIDDATA", "DMVPEND", "DMVRESERVE", "DMVRESPONSE", "DUPLICATE", 
+        "EXEMPTEDREJECTED", "HOLD", "INVLAIDPLATE", "LEASE", "LinkedToCustomer", "LinkedToIOP", 
+        "LinkedToViolator", "OUTOFCOUNTRY", "PLATESWEEP", "POSTED", "PROTECTEDPLATE", "REJECTED", 
+        "RENTAL", "REQUESTRECIEVED", "SALESORTRANSFER", "STOLEN", "TOOOLDTRIP", "WAITING", "WRONGPLATE"
+    ],
+    "TRIPSTATUSDESCRIPTION": [
+        "Customer Identified for DMV Vehicle Number", "Dispute raised for transaction", 
+        "DMV Response Pending", "DMV Response Received", "DMV response received as Cancel", 
+        "DMV response received as Request Received", "DMV response received as RESERVE", 
+        "DMV response received as Waiting", "DMV Service returned data in invalid format", 
+        "DMVDATAINCORRECT", "DUPLICATE", "ExemptedRejected Plate", "Invalid plate", "Lease", 
+        "OutofCountry", "Plate details does not exist in DMV", "Protected Plate", "Rental", 
+        "Sales or transfer", "STOLEN", "Transaction adjusted", "Transaction identified as old date", 
+        "Transaction identified as plate read but image not copied", "Transaction is Accepted", 
+        "Transaction is dismissed and linked to Customer account", 
+        "Transaction is dismissed and posted to IOP", 
+        "Transaction is Dismissed and transfered to the Violator account", "Transaction is posted", 
+        "Transaction is rejected", "Transaction kept on hold", "WRONGPLATE"
+    ]
+}
+
+},
+    "Table: PBI.ADJUSTMENTSINFO": {
+        "Description": "This table stores data related to the dollar value of adjustments, categorized by adjustment date, transaction type and adjustment type (C-Credit or D-Debit)",
+        "Columns": [
+            {
+                "Column": "ADJUSTMENTSINFOID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "ADJUSTMENTDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "ADJUSTMENTTYPE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "ADJUSTMENTTRANSACTION",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "TXNAMOUNT",
+                "DataType": "money"
+            },
+            {
+                "Column": "CREATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "CREATEDUSER",
+                "DataType": "varchar"
+            }
+        ],
+        "RowCount": 5887,
+        "MasterDataValues": {
+            "ADJUSTMENTTRANSACTION": ["TOLLS", "FEES"],
+            "ADJUSTMENTTYPE": ["C", "D"]
+        }
+    },
+    "Table: PBI.DISPUTES_SUMMARY_V2": {
+        "Description": "This table stores details of disputes related to toll transactions, including affidavit type, request status (accepted/rejected), location code, toll amount, invoice details, and associated timestamps. It helps track dispute resolutions based on affidavit creation date and dispute outcome. map the LOCATIONCODE to the location name of TOLLPLUS.Locations table.",
+        "Columns": [
+            {
+                "Column": "SNO",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "AFFIDAVITCREATEDDATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "AFFIDAVITTYPE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "REQUESTEDSTATUS",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "LOCATIONCODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "CNT",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "TOLLCNT",
+                "DataType": "int"
+            },
+            {
+                "Column": "TOLLAMOUNT",
+                "DataType": "money"
+            },
+            {
+                "Column": "INVOICECNT",
+                "DataType": "int"
+            },
+            {
+                "Column": "INVOICEAMT",
+                "DataType": "money"
+            },
+            {
+                "Column": "CREATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "CREATEDBY",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "UPDATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "UPDATEDBY",
+                "DataType": "varchar"
+            }
+        ],
+        "RowCount": 46220,
+        "MasterDataValues": {
+            "AFFIDAVITTYPE": [ "SALESORTRANSFER", "LEASE", "STOLEN", "WRONGPLATE", "RENTAL", "MISKEY PLATE", "RENTED VEHICLE", "INCORRECT PLATE" ],
+            "REQUESTEDSTATUS": [ "DISPUTEREQUESTED", "DISPUTEACCEPTED", "DISPUTEREJECTED", "DISPUTEDUPLICATE", "DISPUTEINPROCESS","DISPUTEEXPIRED"]
+        }
+    },
+    "Table: PBI.HVLETTER_SUMMARY": {
+        "Description": "This table provides a daily summary of Habitual Violator letters sent, including details such as request date, template type, count of letters, creation timestamp, and the user who initiated the process",
+        "Columns": [
+            {
+                "Column": "HVLETTER_SUMMARYID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "Requesteddate",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "TemplateName",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "Cnt",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "CreatedDate",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "CreatedBy",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "UpdatedDate",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "UpdatedBy",
+                "DataType": "varchar"
+            }
+        ],
+        "RowCount": 9070,
+        "MasterDataValues": { 
+            "TEMPLATENAME": ["HV_REGISTRATION_HOLD_RELEASE", "NONHV_PAYMENTPLAN_DEFAULT", "HV_PREDETERMINATION_CTRMA", "HV_TERMINATION", "HV_PROHIBITION_REMOVAL", "HV_REGISTRATION_HOLD", "PAYMENTPLAN_AGREEMENT", "HV_DETERMINATION_CTRMA", "HV_PROHIBITION", "NONHV_PAYMENTPLAN_AGREEMENT", "HV_PAYMENTPLAN_DEFAULT"]
+        }
+
+    },
+    "Table: PBI.HVPAYMENTSREPORT": {
+        "Description": "This table provides a day-wise summary of HV payments categorized by different stages, including Pre-Determination, Determination, and Habitual Violator Active, along with transaction amounts and payment-related details.",
+        "Columns": [
+            {
+                "Column": "HVPAYMENTSREPORTID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "PAYMENTDATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "STAGEDESC",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "TXNAMOUNT",
+                "DataType": "money"
+            },
+            {
+                "Column": "NOOFPMTS",
+                "DataType": "int"
+            },
+            {
+                "Column": "NOOFACTS",
+                "DataType": "int"
+            }
+        ],
+        "RowCount": 4228,
+        "MasterDataValues": {
+        "STAGEDESC": ["Determination", "HV Active", "PreDetermination"]
+        }
+
+    },
+    "Table: PBI.NOTICE_SUMMARY": {
+        "Description": "This table provides a daily summary of notice letters sent, categorized by TBN (Toll Bill Notice), NNP (Notice of Non-Payment), and NTV (Notice to Violator). It includes the number of notices sent, invoice and toll amounts due, and toll transaction counts. The table also tracks timestamps for creation and updates. It helps monitor unpaid tolls, late payments, and violations for compliance and enforcement. Recommendations should be on Template Names, various types of Amount and Counts",
+        "Columns": [
+            {
+                "Column": "ID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "REQUESTEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "TEMPLATENAME",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "NOTICECNT",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "INVOICEDUE",
+                "DataType": "money"
+            },
+            {
+                "Column": "INVOICETOLLDUE",
+                "DataType": "money"
+            },
+            {
+                "Column": "ILTOLLDUE",
+                "DataType": "money"
+            },
+            {
+                "Column": "ILTOLLCNT",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "CREATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "CREATEDUSER",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "UPDATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "UPDATEDUSER",
+                "DataType": "varchar"
+            }
+        ],
+        "RowCount": 12274,
+        "MasterDataValues": {
+        "TEMPLATENAME": ["VPS_TBN_NOTICE", "VPS_NNP_NOTICE", "VPS_NTV_NOTICE"]
+        }
+
+    },
+    "Table: PBI.PAYMENTSINFO": {
+        "Description": "This table provides daily payment transaction details, categorized by payment status, payment mode , and account type. It includes transaction amounts, number of payments, and account status. The table also tracks timestamps for creation and user activity to monitor payment trends and reconciliation.",
+        "Columns": [
+            {"Column": "Id", "DataType": "bigint"},
+            {"Column": "PAYMENTDATE", "DataType": "datetime"},
+            {"Column": "PAYMENTTYPE", "DataType": "varchar"},
+            {"Column": "PAYMNETSTATUS", "DataType": "varchar"},
+            {"Column": "PMTMODE", "DataType": "varchar"},
+            {"Column": "ACCOUNTSTATUS", "DataType": "varchar"},
+            {"Column": "ACCOUNTTYPES", "DataType": "varchar"},
+            {"Column": "TXNAMOUNT", "DataType": "money"},
+            {"Column": "NOOFPMTS", "DataType": "int"},
+            {"Column": "CREATEDDATE", "DataType": "datetime"},
+            {"Column": "CREATEDUSER", "DataType": "varchar"}
+        ],
+        "RowCount": 97289, 
+        "MasterDataValues": {
+            "PAYMENTTYPE": ["GPAY", "COLLV", "TVC", "APPLEPAY", "CSG", "WEB", "WEBV", "BPC"],
+            "PAYMNETSTATUS": ["Success", "Reversal", "Queued", "REVERSALINPROCESS", "AutoReversed", "Failed", "Refunds", "InComplete"],
+            "PMTMODE": ["CreditCard", "MoneyOrder", "CashierCheque", "COLL", "Bank", "Lockbox", "DebitCard", "Cash"],
+            "ACCOUNTSTATUS": ["Active", "Refund Requested", "Inactive", "Write Off", "Pending Negative", "New Account", "Violator", "Closed"],
+            "ACCOUNTTYPES": ["NonCustomer", "Individual", "Anonymous", "Business"]
+        }
+    },
+    "Table: REPORTS.LIQUIDATIONDATABYINVDATE": {
+        "Description": "This table provides liquidation data based on invoice dates, tracking the lifecycle of transactions from the date they were received, invoiced, and subsequently paid. It includes details such as invoice month, citation stage, agency ID, location, plaza and lane details, transaction counts, payment amounts, and charged amounts. This data helps analyze when transactions were processed and settled, supporting financial reconciliation and reporting. PAIDAMT is Paid Amount and CHARGEDAMOUNT is actual Charged Amount",
+        "Columns": [
+            {
+                "Column": "FileMonthYear",
+                "DataType": "nvarchar"
+            },
+            {
+                "Column": "FILERECEIVEDATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "InvoiceMonthYear",
+                "Description": "holds the Invoice Month Year in MMM-YY format, for ex: Dec-20",
+                "DataType": "nvarchar"
+            },
+            {
+                "Column": "InvoiceMonthYearToorder",
+                "DataType": "nvarchar"
+            },
+            {
+                "Column": "MonthNumber",
+                "DataType": "int"
+            },
+            {
+                "Column": "InvMonthNumber",
+                "DataType": "int"
+            },
+            {
+                "Column": "CITATIONSTAGE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "AGENCYID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "LOCATIONID",
+                "DataType": "int"
+            },
+            {
+                "Column": "ENTRYPLAZAID",
+                "DataType": "int"
+            },
+            {
+                "Column": "ENTRYLANEID",
+                "DataType": "int"
+            },
+            {
+                "Column": "PaidCount",
+                "DataType": "int"
+            },
+            {
+                "Column": "PAIDAMT",
+                "DataType": "money"
+            },
+            {
+                "Column": "CHARGEDAMOUNT",
+                "DataType": "money"
+            },
+            {
+                "Column": "TOTALCNT",
+                "DataType": "int"
+            },
+            {
+                "Column": "JOBRUNDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "TRIPSTATUSDATE",
+                "DataType": "date"
+            }
+        ],
+        "RowCount": 5313014,
+        "MasterDataValues": "AGENCYID range 9000000374 to 9000000374, PAIDAMT is Paid Amount and CHARGEDAMOUNT is actual Charged Amount"
+    },
+    "Table: REPORTS.LOADEDTRANSACTION_DETAILS": {
+        "Description": "This table provides a daily summary of loaded transaction counts for each facility, tracking the number of transactions processed. It includes details such as facility code, plaza code, lane code, file received date, transaction billed count, and timestamps for creation and updates. This data helps monitor toll transactions received, processed, and billed across different locations.",
+        "Columns": [
+            {
+                "Column": "LOADEDTXNDTLID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "RMA",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "FACILITYCODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "PLAZACODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "LANECODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "FILE_RECEIVED_DATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "TRANSACTION_BILLED",
+                "DataType": "int"
+            },
+            {
+                "Column": "CREATED_DATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "UPDATED_DATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "YYYYMMDD",
+                "DataType": "date"
+            }
+        ],
+        "RowCount": 258067,
+        "MasterDataValues": {
+        "LANECODE": ["03", "06", "01", "07", "04", "05", "02", "08"],
+        "RMA": [9000000374, 9000000375, null],
+        "FACILITYCODE": ["183", "45SW", "290E", "183A", "71", "183S", "SH71", "290", "MOPAC", "NE49"]
+        }
+
+    },
+    "Table: REPORTS.PAIDTRANSACTION_DETAILS": {
+        "Description": "This table provides a record of paid transactions, categorized by file received date. It includes details such as facility code, plaza code, lane code, trip status date, number of transactions paid, and timestamps for creation and updates, no payment status available. This data helps track when transactions were received, processed, and marked as paid across different toll locations",
+        "Columns": [
+            {
+                "Column": "PAIDTXNDTLID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "RMA",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "FACILITYCODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "PLAZACODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "LANECODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "FILE_RECEIVED_DATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "TRIPSTATUSDATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "PAIDCOUNT",
+                "DataType": "int"
+            },
+            {
+                "Column": "CREATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "YYYYMMDD",
+                "DataType": "date"
+            }
+        ],
+        "RowCount": 253405,
+        "MasterDataValues": {
+            "RMA": [ "9000000374", "9000000375" ],
+            "FACILITYCODE": [ "183", "183A", "183S", "1XNB", "1XSB", "290", "290E", "45SW", "71", "MOPAC", "NE49", "SH71" ],
+            "PLAZACODE": [ 
+                "2222", "2222-CSRCHVZSB", "2222-PRMRNB", "2222SB", "2493E", "2493X", "51STE", "51STEN", "51STMLNB", "51STX", "51STXT", 
+                "969XT", "BearCrkEB", "BearCrkWB", "BRCRKMLEB", "BRCRKMLWB", "BRSHCE", "BRSHCX", "BRSHYCRKEN", "BRSHYCRKXT", "CRSTFLEN", 
+                "CRSTLFLMLNB", "CRSTLFLMLSB", "CRSTLFLXT", "CRYFLE", "CRYFLN", "CRYFLS", "CRYFLX", "CSRCHVZ-183", "CSRCHVZ-PRMRNB", 
+                "CSRCHVZNB", "CVZ", "FM16N", "FM16S", "FM973", "FM973EB", "FM973WB", "GILESE", "GILESEN", "GILESMLEB", "GILESMLWB", 
+                "GILESX", "GILESXT", "GLMLEB", "GLMLWB", "H110E", "H110W", "HARISE", "HARISX", "HRSBRNCHEN", "HRSBRNCHXT", "LKLNMLNB", 
+                "LKLNMLSB", "LKLNN", "LKLNS", "MLKMLSB", "PAR", "PARKS", "PCMN", "PCMS", "PLXYE", "PLXYX", "PMMLEB", "PMMLWB", 
+                "PRKSTMLNB", "PRKSTMLSB", "PRMR-2222SB", "PRMR-CSRCHVZSB", "PRMRMLEB", "PRMRMLWB", "PRMRSB", "SCOTTX", "SCPEB", "SCPWB", 
+                "SCTSDLXT", "SH130DCEN", "SH130E", "SH31E", "SH31W", "SH64N", "SH64S", "SH71DCEN", "SH71DCXT", "SMTHRDEN", "SMTHRDXT", 
+                "SPRINE", "SPRINX", "SPRNGDLEN", "SPRNGDLXT", "STEV", "THMPSNMLNB", "THMPSNMLSB", "US183E", "US183EN", "US183X", "US183XT" 
+            ],
+            "LANECODE": [ 
+                "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", 
+                "183", "2222", "CVZ", "PAR" 
+            ]
+        }
+
+    },
+    "Table: REPORTS.UNCOLLECTABLETXN_DETAILS": {
+        "Description": "This table provides a record of uncollectible transactions, categorized by file received date and the reason for non-collection. It includes details such as facility code, plaza code, lane code, number of uncollectible transactions, transaction type (e.g., Hotlist Plate, Qualified Veteran), and timestamps for creation and updates, no status available. This data helps track failed collection attempts and reasons across different toll locations.",
+        "Columns": [
+            {
+                "Column": "UNCOLLTXNDTLID",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "RMA",
+                "DataType": "bigint"
+            },
+            {
+                "Column": "FACILITYCODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "PLAZACODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "LANECODE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "FILE_RECEIVED_DATE",
+                "DataType": "date"
+            },
+            {
+                "Column": "TRANSACTION_UNCOLLECTABLE",
+                "DataType": "int"
+            },
+            {
+                "Column": "TRNTYPE",
+                "DataType": "varchar"
+            },
+            {
+                "Column": "CREATEDDATE",
+                "DataType": "datetime"
+            },
+            {
+                "Column": "UPDATEDDATE",
+                "DataType": "datetime"
+            }
+        ],
+        "RowCount": 37059606,
+        "MasterDataValues": { "TRNTYPE": ["NonCustomer", "Individual", "Anonymous", "Business", "DMVINVALIDDATA", "DMVRESERVE", "DUPLICATEEVENT", "HOTLISTPLATE", "INVALIDPLAZA", "INVALIDVEHICLELENGTH", "INVALIDVEHICLESTATE", "MISSINGIMAGE", "NULLEVENT", "QUALIFIEDVETERAN", "REJECTED", "STOLEN", "TOOOLDTRIP", "TOOOLDTRIPS", "WriteOff", "WRONGPLATE"] }
+
+    }
+}

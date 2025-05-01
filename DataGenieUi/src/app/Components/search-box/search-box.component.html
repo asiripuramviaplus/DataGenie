@@ -1,0 +1,249 @@
+<div class="overall-container">
+  <div class="upper-container">
+    <div class="container-fluid">
+      <div class="question-section">
+        <div class="main-title">Your data is ready, ask Data Genie to explore it</div>
+        <div class="input-wrapper">
+          <textarea (keydown)="onKeydown($event)"
+            [(ngModel)]="query" 
+            (ngModelChange)="onQueryChange()" 
+                          class="query-input" 
+            placeholder="Enter your question..." 
+            [rows]="calculateRows(query)"
+          ></textarea>
+          
+          <button class="submit-btn" 
+                  (click)="generateAndExecuteSql()" 
+                  [disabled]="isLoading || !isQueryNotEmpty"
+                  [ngClass]="{'grey-btn': !isQueryNotEmpty, 'original-btn': isQueryNotEmpty}">
+            <i class="bi" [ngClass]="isLoading ? 'bi-hourglass-split' : 'bi-arrow-right'"></i>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="showPrompts" class="example-prompts">
+        <div
+          class="prompt"
+          *ngFor="let prompt of examplePrompts"
+          (click)="setQuery(prompt)"
+          [ngClass]="{'disabled': isLoading, 'skeleton-outline': isLoading}">
+          {{ prompt }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <i class="bi bi-arrow-repeat spin"></i> Loading...
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <!-- Query Results Container -->
+    <div *ngIf="generatedSql" class="result-section">
+      <div>
+        <div class="generated-label">
+          Generated SQL 
+          <div class="generated-info">
+            <span class="generation-time">Generated Time: {{ generationTime }}</span>
+          </div>
+        </div>
+        
+        <button (click)="copyGeneratedSQL()" class="copy-button">
+          <i class="far fa-copy" style="padding-right: 8px;" *ngIf="!isCopied"></i>
+          {{ isCopied ? '✔ Copied' : 'Copy' }}
+        </button>
+        <div class="generated-content">{{ generatedSql }}</div>
+      </div>
+      
+      
+
+      <!-- Generated Summary -->
+      <div *ngIf="generatedSummary" class="summary-section">
+        <div class="section-label">Summary</div>
+        <div class="content">{{ generatedSummary }}</div>
+      </div>
+
+      <!-- Generated Recommendations -->
+      <div class="recommendation-section">
+        <div class="section-label">Recommendations</div>
+        <div class="recommendation-message">{{ generatedRecommendations }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Query Results Table -->
+  <div *ngIf="queryResult" class="table-wrapper">
+    <div class="table-header">
+      <div class="search-box"> 
+        <span class="search-icon">
+          <img src="../../../assets/search-icon.svg" alt="Search"/>
+        </span>
+        <input type="text" placeholder="Search..." class="search-input" [(ngModel)]="searchTerm" (ngModelChange)="filterRows()" />
+      </div>  
+      <span *ngIf="executionTime" class="execution-time">Execution Time: {{ executionTime }}</span>
+      <button class="export-button" (click)="exportToCSV()">Export as CSV</button>
+      <!-- <i class="fas fa-file-csv export-icon" (click)="exportToCSV()" title="Export to CSV"></i> -->
+
+
+      <button class="expand-button" (click)="toggleModal()">
+        <img src="../../../assets/expand.svg" alt="Expand"/>
+      </button>
+    </div>
+    <div class="table-overlay" *ngIf="isLoading">
+      <i class="bi bi-arrow-repeat spin"></i> Loading...
+    </div>
+    <div class="table-container">
+      <table [class.disabled]="isLoading">
+        <thead>
+          <tr>
+            <th *ngFor="let column of resultColumns">
+              <div class="table-header-cell">
+                {{ column }}
+                <div class="sort-icons">
+                  <span class="bi bi-caret-up-fill" (click)="sortData(column, 'asc')"></span>
+                  <span class="bi bi-caret-down-fill" (click)="sortData(column, 'desc')">
+                  </span>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of filteredRows">
+            <td *ngFor="let column of resultColumns">
+              {{ column.toLowerCase().includes('amount') || column.toLowerCase().includes('price') ? '$' + row[column] : row[column] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination Controls -->
+    <!-- *ngIf="filteredRows.length > 0 && totalPages > 1" -->
+
+    <div class="pagination-container" *ngIf="pagedRows.length > 0 && totalRecords > 0">
+      <div>Total <span class="total-records">{{ totalRecords }}</span></div>
+
+      <div class="pages">
+        <div class="rowsPerPage">
+          <select (change)="onPageSizeChanged($event)" class="page-size-select">
+            <option [value]="10" [disabled]="isPageSizeDisabled(10)"><span>10</span> / per page</option>
+            <option [value]="25" [disabled]="isPageSizeDisabled(25)"><span>25</span> / per page</option>
+            <option [value]="50" [disabled]="isPageSizeDisabled(50)"><span>50</span> / per page</option>
+            <option [value]="100" [disabled]="isPageSizeDisabled(100)"><span>100</span> / per page</option>
+          </select>
+        </div>  
+
+        <div class="page-numbers">
+          <button (click)="goToPage(1)" [disabled]="currentPage === 1" class="pagination-btn" title="First Page"><<</button>
+          <button (click)="previousPage()" [disabled]="currentPage === 1" class="pagination-btn-1" title="Previous Page"><</button>
+        
+          <span *ngFor="let page of getPageNumbers()">
+              <button (click)="goToPage(page)" [ngClass]="{'active-page': currentPage === page}" class="page-numbers-btn">
+                <span class="high-weight">{{ page }}</span>
+              </button>
+          </span>
+        
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="pagination-btn-1" title="Next Page">></button>
+          <button (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages" class="pagination-btn" title="Last Page">>></button>
+        </div>
+        <div class="go-to-page" *ngIf="pagedRows.length > 0">
+          <span>Go to page</span> 
+          <!-- <select (change)="goToPage($event)" class="page-select">
+            <option *ngFor="let page of getPageNumbers()" [value]="page" class="high-weight">{{ page }}</option>
+          </select>
+          <span>or</span> -->
+          <input type="number" min="1" [max]="totalPages" [(ngModel)]="directPageInput" (keydown.enter)="goToPage(directPageInput)" (change)="goToPage(directPageInput)" class="page-input small-input"  />
+        </div>
+      </div>
+    </div>
+    
+
+    <div *ngIf="pagedRows.length === 0" class="no-data-message">
+      {{ message }} 
+    </div>
+  </div>
+</div>  
+<!-- </div> -->
+
+<!-- Fullscreen Modal -->
+<app-modal 
+[isOpen]="isModalOpen" 
+[title]="'Query Results'" 
+(closeModal)="toggleModal()"
+(searchEvent)="ModelfilterRows(this.searchTerm)">
+<div class="modal-table-container">
+  <table class="modal-table">
+    <thead>
+      <tr>
+        <th *ngFor="let column of resultColumns">
+          <div class="table-header-cell">
+            {{ column }}
+            <span class="sort-icons">
+              <span class="bi bi-caret-up-fill" (click)="sortData(column, 'asc')"></span>
+              <span class="bi bi-caret-down-fill" (click)="sortData(column, 'desc')">
+              </span>
+            </span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of filteredRows">
+        <td *ngFor="let column of resultColumns">
+          {{ column.toLowerCase().includes('amount') || column.toLowerCase().includes('price') ? '$' + row[column] : row[column] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</app-modal>
+
+<!-- <p>Search Box Component is working!</p> -->
+<!-- Add more content as needed -->
+
+<div class="chat-container">
+<div class="chatbox" *ngIf="showChatBox" [ngClass]="chatBoxType">
+  <div class="chat-message">{{ chatBoxMessage }}</div>
+</div>
+
+<!-- Error Chat Box Like Messenger -->
+<div class="error-chatbox" *ngIf="showErrorChatBox">
+<div class="chat-header">🤖 Data Genie</div>
+<div class="bot-message">
+  We’re sorry! An error occurred. <br>
+  <strong>Ticket No:</strong> {{ ticketNumber }} <br>
+  Our team is looking into this. Thank you for your patience.
+</div>
+</div>
+
+<!-- Chat Icon -->
+<div class="chat-icon" (click)="toggleInteractiveChat()" [class.data-received]="dataReceived">
+  <i class="bi bi-chat-dots"></i>
+</div>
+
+<!-- Messenger Style Chat Window -->
+<div class="interactive-chatbox" *ngIf="showInteractiveChat">
+<div class="chat-header">🤖 Data Genie</div>
+
+<div class="chat-history">
+  <div *ngFor="let chat of chatHistory" 
+       [ngClass]="{'bot-bubble': chat.sender === 'bot', 'user-bubble': chat.sender === 'user'}"
+       [innerHTML]="chat.message">
+  </div>
+</div>
+
+<div class="option-buttons" *ngIf="currentMode === 'options'">
+  <button (click)="chooseOption('ticket')">🎫 Ticket Enquiry</button>
+  <button (click)="chooseOption('feedback')">📝 Submit Feedback</button>
+</div>
+
+<!-- Message Input -->
+<div class="input-section" *ngIf="currentMode === 'ticket' || currentMode === 'feedback'">
+  <input type="text" [(ngModel)]="userInput" placeholder="Type here..." />
+  <button (click)="sendUserMessage()">Send</button>
+</div>
+</div>

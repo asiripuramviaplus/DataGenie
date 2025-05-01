@@ -1,0 +1,201 @@
+<div class="container">
+  <h2>Ticket Resolver</h2>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-spinner-container">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="notification" *ngIf="notificationMessage">
+    {{ notificationMessage }}
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-container" *ngIf="!loading">
+    <div class="filterlabel col-12 col-md-6 col-lg-4">
+      <label>Status:</label>
+      <select [(ngModel)]="filterStatus" (ngModelChange)="applyFilters()">
+        <option value="">All</option>
+        <option value="Resolved">Resolved</option>
+        <option value="Pending">Pending</option>
+        <option value="Assigned">Assigned</option>
+      </select>
+    </div>
+  
+    <div class="filterlabel col-12 col-md-6 col-lg-4">
+      <label>Assigned To:</label>
+      <select [(ngModel)]="filterAssignedTo" (change)="applyFilters()">
+        <option value="">All</option>
+        <option *ngFor="let user of teamMembers" [value]="user">{{ user }}</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="search-container">
+    <!-- Search Box -->
+    <div class="search-box">
+      <span class="search-icon">
+        <img src="../../../assets/search-icon.svg" alt="Search" />
+      </span>
+      <input
+        type="text"
+        placeholder="Search..."
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="filterRows()"
+      />
+    </div>
+
+    <!-- Ticket Summary -->
+    <div class="ticket-summary">
+      <div class="summary-item resolved">
+        <span class="summary-label">Resolved:</span>
+        <span class="summary-value">{{ getResolvedTicketsCount() }}</span>
+      </div>
+      <div class="summary-item assigned">
+        <span class="summary-label">Assigned:</span>
+        <span class="summary-value">{{ getAssignedTicketsCount() }}</span>
+      </div>
+      <div class="summary-item unassigned">
+        <span class="summary-label">Pending:</span>
+        <span class="summary-value">{{ getUnassignedTicketsCount()   }}   </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket Table -->
+  <div class="ticket-table-wrapper">
+    <table class="table-wrapper">
+      <thead>
+        <tr>
+          <!-- <th style="width: 30px;">
+            <input type="checkbox" (change)="toggleSelectAll($event)" />
+          </th> -->
+          <th style="width: 50px;">#</th>
+          <th style="width: 80px;">
+            <div class="header-container">
+              Ticket Number
+              <span class="sort-icons">
+                <span (click)="sortTickets('TicketNumber', 'asc')">▲</span>
+                <span (click)="sortTickets('TicketNumber', 'desc')">▼</span>
+              </span>
+            </div>
+          </th>
+          <th style="width: 30%">Prompt</th>
+          <th style="width: 15%; text-align: center;">Status</th>
+          <th style="width: 20%; text-align: center;">Assigned To</th>
+          <th style="width: 10%;">  Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of paginatedTickets; let i = index">
+          <!-- <td>
+            <input
+              type="checkbox"
+              [(ngModel)]="ticket.selected"
+              (change)="updateSelectedTickets(ticket)"
+              [disabled]="ticket.TicketStatus === 'Resolved'" 
+            />
+          </td> -->
+          <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+          <td>{{ ticket.TicketNumber }}</td>
+          <td class="prompt-column">{{ ticket.Prompt }}</td>
+          <td style="text-align: center;">
+            <span class="ticket-status" [ngClass]="ticket.TicketStatus.toLowerCase()">
+              {{ ticket.TicketStatus }}
+            </span>
+          </td>
+          <td>
+            <select 
+              [(ngModel)]="ticket.ResolvedBy" 
+              (change)="assignTicket(ticket)" 
+              [disabled]="ticket.TicketStatus === 'Resolved'">
+              <option value="">Unassigned</option>
+              <option *ngFor="let user of teamMembers" [value]="user">{{ user }}</option>
+            </select>
+          </td>
+          <td>
+            <button 
+              class="resolve-button"
+              (click)="resolveTicket(ticket)" 
+              [disabled]="!ticket.ResolvedBy || ticket.ResolvedBy === '' || ticket.TicketStatus === 'Resolved'">
+              Resolve
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container">
+    <div>Total <span class="total-records">{{ totalRecords }}</span></div>
+    
+    <div class="pages">
+      <div class="rowsPerPage">
+        <select (change)="onPageSizeChange($event)" class="page-size-select">
+          <option [value]="10" [disabled]="isPageSizeDisabled(10)"><span>10</span> / per page</option>
+          <option [value]="25" [disabled]="isPageSizeDisabled(25)"><span>25</span> / per page</option>
+          <option [value]="50" [disabled]="isPageSizeDisabled(50)"><span>50</span> / per page</option>
+          <option [value]="100" [disabled]="isPageSizeDisabled(100)"><span>100</span> / per page</option>
+        </select>
+      </div>  
+
+      <div class="page-numbers">
+        <button
+          class="pagination-btn"
+          title="First Page"
+          [disabled]="currentPage === 1"
+          (click)="goToPage(1)"
+        >
+          &lt;&lt; <!-- This is the updated sign for the First button -->
+        </button>
+        <button
+          class="pagination-btn-1"
+          title="Previous Page"
+          [disabled]="currentPage === 1"
+          (click)="goToPage(currentPage - 1)"
+        >
+          &lt;
+        </button>
+
+        <span>
+          <button
+            *ngFor="let page of getPageNumbers()"
+            class="page-numbers-btn"
+            [ngClass]="{ 'active-page': page === currentPage }"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        </span>
+
+        <button
+          class="pagination-btn-1"
+          title="Next Page"
+          [disabled]="currentPage === getTotalPages()"
+          (click)="goToPage(currentPage + 1)"
+        >
+          &gt;
+        </button>
+        <button
+          class="pagination-btn"
+          title="Last Page"
+          [disabled]="currentPage === getTotalPages()"
+          (click)="goToPage(getTotalPages())"
+        >
+          &gt;&gt; <!-- This is the updated sign for the Last button -->
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.ticket-table-wrapper table {
+  table-layout: auto; /* Allow columns to adjust based on content */
+}
+</style>
